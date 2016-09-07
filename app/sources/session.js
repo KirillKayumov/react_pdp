@@ -2,10 +2,10 @@ import config from 'config';
 import request from 'lib/request';
 
 export default class SessionSource {
-  static urlRoot = `${config.apiTarget}/session`
+  static url = `${config.apiTarget}/users/sign_in`
 
   static create(user) {
-    return request(this.urlRoot, {
+    return request(this.url, {
       method: 'POST',
       body: JSON.stringify(user)
     })
@@ -13,7 +13,7 @@ export default class SessionSource {
   }
 
   static delete(user) {
-    return request(`${this.urlRoot}/${user.id}`, {
+    return request(`${this.url}/${user.id}`, {
       method: 'DELETE'
     });
   }
