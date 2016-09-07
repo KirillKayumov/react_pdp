@@ -1,6 +1,7 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
 import ApplicationActions from 'actions/application';
+import SessionActions from 'actions/session';
 
 @createStore(Alt)
 export default class ApplicationStore {
@@ -13,7 +14,8 @@ export default class ApplicationStore {
 
     this.bindListeners({
       openModal: ApplicationActions.OPEN_MODAL,
-      closeModal: ApplicationActions.CLOSE_MODAL
+      closeModal: ApplicationActions.CLOSE_MODAL,
+      handleSessionCreate: SessionActions.CREATE
     });
   }
 
@@ -26,5 +28,11 @@ export default class ApplicationStore {
   closeModal() {
     this.isModalOpen = false;
     this.modalName = '';
+  }
+
+  handleSessionCreate(data) {
+    if (!data['error']) {
+      this.closeModal();
+    }
   }
 }

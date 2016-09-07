@@ -2,6 +2,7 @@ import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
 import SigninActions from 'actions/signin';
 import ApplicationActions from 'actions/application';
+import SessionActions from 'actions/session';
 
 @createStore(Alt)
 export default class SigninStore {

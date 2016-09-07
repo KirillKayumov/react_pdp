@@ -19,8 +19,11 @@ export default class SessionStore {
     });
   }
 
-  create(user) {
-    this.currentUser = user;
+  create(data) {
+    if (data['user']) {
+      this.currentUser = data['user'];
+      Storage.set(STORAGE_KEY, data['user']);
+    }
   }
 
   delete() {

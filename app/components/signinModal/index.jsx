@@ -12,6 +12,7 @@ import ApplicationActions from 'actions/application';
 import SigninActions from 'actions/signin';
 import ApplicationStore from 'stores/application';
 import SigninStore from 'stores/signin';
+import SigninModalError from 'components/signinModalError'
 
 @connectToStores
 export default class SigninModal extends React.Component {
@@ -43,7 +44,6 @@ export default class SigninModal extends React.Component {
 
     if (this.isValid()) {
       session.create(this.props.user);
-      ApplicationActions.closeModal();
     }
   }
 
@@ -67,6 +67,8 @@ export default class SigninModal extends React.Component {
         <Modal.Header closeButton>
           <h3 className="modal-title">Sign In</h3>
         </Modal.Header>
+
+        <SigninModalError/>
 
         <form onSubmit={ this.signIn }>
           <Modal.Body>
