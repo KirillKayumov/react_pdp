@@ -11,6 +11,7 @@ import SignupActions from 'actions/signup';
 import ApplicationActions from 'actions/application';
 import SignupStore from 'stores/signup';
 import ApplicationStore from 'stores/application';
+import SignupModalError from 'components/signupModalError'
 
 @connectToStores
 export default class SignupModal extends React.Component {
@@ -20,7 +21,7 @@ export default class SignupModal extends React.Component {
       name: React.PropTypes.string,
       email: React.PropTypes.string,
       password: React.PropTypes.string,
-      passwordConfirmation: React.PropTypes.string
+      password_confirmation: React.PropTypes.string
     })
   }
 
@@ -55,13 +56,13 @@ export default class SignupModal extends React.Component {
       user.name.trim().length &&
       user.email.length >= 6 &&
       user.password.length >= 6 &&
-      user.passwordConfirmation.length >= 6 &&
+      user.password_confirmation.length >= 6 &&
       this.isValidPassword()
     );
   }
 
   isValidPassword() {
-    return this.props.user.password === this.props.user.passwordConfirmation;
+    return this.props.user.password === this.props.user.password_confirmation;
   }
 
   validationState(value) {
@@ -86,6 +87,8 @@ export default class SignupModal extends React.Component {
         <Modal.Header closeButton>
           <h3 className="modal-title">Sign Up</h3>
         </Modal.Header>
+
+        <SignupModalError/>
 
         <form onSubmit={ this.signUp }>
           <Modal.Body>
@@ -123,13 +126,13 @@ export default class SignupModal extends React.Component {
               />
             </FormGroup>
             <FormGroup
-              controlId="passwordConfirmation"
-              validationState={ this.passwordValidationState(this.props.user.passwordConfirmation) }
+              controlId="password_confirmation"
+              validationState={ this.passwordValidationState(this.props.user.password_confirmation) }
             >
               <ControlLabel>Password Confirmation</ControlLabel>
               <FormControl
                 type="password"
-                name="passwordConfirmation"
+                name="password_confirmation"
                 onChange={ this.setValue }
               />
             </FormGroup>

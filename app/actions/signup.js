@@ -12,7 +12,6 @@ export default class SignupActions {
   create(user) {
     return (dispatch) => {
       signupSource.create(user).then((result) => {
-        session.create(result);
         dispatch(result);
       });
     };

@@ -2,6 +2,7 @@ import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
 import ApplicationActions from 'actions/application';
 import SessionActions from 'actions/session';
+import SignupActions from 'actions/signup';
 
 @createStore(Alt)
 export default class ApplicationStore {
@@ -15,7 +16,8 @@ export default class ApplicationStore {
     this.bindListeners({
       openModal: ApplicationActions.OPEN_MODAL,
       closeModal: ApplicationActions.CLOSE_MODAL,
-      handleSessionCreate: SessionActions.CREATE
+      handleSessionCreate: SessionActions.CREATE,
+      handleSignupCreate: SignupActions.CREATE
     });
   }
 
@@ -32,6 +34,12 @@ export default class ApplicationStore {
 
   handleSessionCreate(data) {
     if (!data['error']) {
+      this.closeModal();
+    }
+  }
+
+  handleSignupCreate(data) {
+    if (!data['rails_api_format/error']) {
       this.closeModal();
     }
   }
