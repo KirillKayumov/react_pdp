@@ -45,7 +45,6 @@ export default class SignupModal extends React.Component {
 
     if (this.isValid()) {
       SignupActions.create(this.props.user);
-      ApplicationActions.closeModal();
     }
   }
 
