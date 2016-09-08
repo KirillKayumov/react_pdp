@@ -11,7 +11,7 @@ export default class SignupStore {
     name: '',
     email: '',
     password: '',
-    passwordConfirmation: ''
+    password_confirmation: ''
   }
 
   constructor() {
