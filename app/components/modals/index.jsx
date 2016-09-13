@@ -4,11 +4,13 @@ import ApplicationStore from 'stores/application';
 import TodoModal from 'components/todoModal';
 import SigninModal from 'components/signinModal';
 import SignupModal from 'components/signupModal';
+import PasswordModal from 'components/passwordModal';
 
 const MODALS = {
   todo: TodoModal,
   signIn: SigninModal,
-  signUp: SignupModal
+  signUp: SignupModal,
+  password: PasswordModal
 };
 
 @connectToStores
