@@ -4,6 +4,7 @@ import Storage from 'lib/storage';
 import SessionActions from 'actions/session';
 import SignupActions from 'actions/signup';
 import config from 'config';
+import GoogleAuthActions from 'actions/google_auth';
 
 const STORAGE_KEY = config.storageKey;
 
@@ -15,7 +16,7 @@ export default class SessionStore {
     this.currentUser = Storage.get(STORAGE_KEY) || {};
 
     this.bindListeners({
-      create: [SessionActions.CREATE, SignupActions.CREATE],
+      create: [SessionActions.CREATE, SignupActions.CREATE, GoogleAuthActions.CREATE],
       delete: SessionActions.DELETE,
     });
   }
