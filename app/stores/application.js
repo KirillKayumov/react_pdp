@@ -3,6 +3,7 @@ import { createStore } from 'alt-utils/lib/decorators';
 import ApplicationActions from 'actions/application';
 import SessionActions from 'actions/session';
 import SignupActions from 'actions/signup';
+import PasswordModalActions from 'actions/passwordModal';
 import GoogleAuthActions from 'actions/google_auth';
 
 @createStore(Alt)
@@ -16,7 +17,7 @@ export default class ApplicationStore {
 
     this.bindListeners({
       openModal: ApplicationActions.OPEN_MODAL,
-      closeModal: ApplicationActions.CLOSE_MODAL,
+      closeModal: [ApplicationActions.CLOSE_MODAL, PasswordModalActions.SUBMIT],
       handleSessionCreate: SessionActions.CREATE,
       handleSignupCreate: SignupActions.CREATE,
       handleGoogleAuth: GoogleAuthActions.CREATE
@@ -46,7 +47,11 @@ export default class ApplicationStore {
     }
   }
 
-  handleGoogleAuth() {
-    this.closeModal();
+  handleGoogleAuth(data) {
+    if (data['user'] && !data['user']['password_set_by_user']) {
+      this.openModal({ name: 'password' });
+    } else {
+      this.closeModal();
+    }
   }
 }
