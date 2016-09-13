@@ -9,7 +9,7 @@ export default class GoogleAuthSource {
       delete response["g-oauth-window"];
 
       if (response && !response.error) {
-        let result = request(url, {
+        let result = request(this.url, {
           method: 'POST',
           body: JSON.stringify(response)
         })
