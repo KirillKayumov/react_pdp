@@ -13,6 +13,7 @@ import SigninActions from 'actions/signin';
 import ApplicationStore from 'stores/application';
 import SigninStore from 'stores/signin';
 import SigninModalError from 'components/signinModalError'
+import GoogleAuthLink from 'components/google_auth_link'
 
 @connectToStores
 export default class SigninModal extends React.Component {
@@ -69,6 +70,7 @@ export default class SigninModal extends React.Component {
         </Modal.Header>
 
         <SigninModalError/>
+        <GoogleAuthLink/>
 
         <form onSubmit={ this.signIn }>
           <Modal.Body>

@@ -3,6 +3,7 @@ import { createStore } from 'alt-utils/lib/decorators';
 import ApplicationActions from 'actions/application';
 import SessionActions from 'actions/session';
 import SignupActions from 'actions/signup';
+import GoogleAuthActions from 'actions/google_auth';
 
 @createStore(Alt)
 export default class ApplicationStore {
@@ -17,7 +18,8 @@ export default class ApplicationStore {
       openModal: ApplicationActions.OPEN_MODAL,
       closeModal: ApplicationActions.CLOSE_MODAL,
       handleSessionCreate: SessionActions.CREATE,
-      handleSignupCreate: SignupActions.CREATE
+      handleSignupCreate: SignupActions.CREATE,
+      handleGoogleAuth: GoogleAuthActions.CREATE
     });
   }
 
@@ -42,5 +44,9 @@ export default class ApplicationStore {
     if (!data['rails_api_format/error']) {
       this.closeModal();
     }
+  }
+
+  handleGoogleAuth() {
+    this.closeModal();
   }
 }
