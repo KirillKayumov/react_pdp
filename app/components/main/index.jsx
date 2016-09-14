@@ -1,6 +1,6 @@
 import React from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
-import TodoLayout from 'components/todo/layout';
+import Profile from 'components/profile';
 import Home from 'components/home';
 import session from 'services/session';
 
@@ -15,6 +15,6 @@ export default class Main extends React.Component {
   }
 
   render() {
-    return session.loggedIn() ? <TodoLayout/> : <Home/>;
+    return session.loggedIn() ? <Profile/> : <Home/>;
   }
 }
