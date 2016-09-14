@@ -1,6 +1,14 @@
 # Changelog
 
 ## Unreleased
+- Upgrade dependencies
+([#54](https://github.com/fs/react-base/pull/54))
+- Add Todo Modal test
+([#53](https://github.com/fs/react-base/pull/53))
+- Add Sign Up Modal test
+([#52](https://github.com/fs/react-base/pull/52))
+- Add Sign In Modal test
+([#51](https://github.com/fs/react-base/pull/51))
 - Bring eslint rules to general view
 ([#50](https://github.com/fs/react-base/pull/50))
 - Add assets compression.
@@ -8,13 +16,17 @@
 - Upgrade dependencies. Add new stylelint/eslint rules.
 ([#48](https://github.com/fs/react-base/pull/48))
 - Upgrade Node.js to 6.5.x
+([#47](https://github.com/fs/react-base/pull/47))
 - Prefer camelCase to js files
+([#47](https://github.com/fs/react-base/pull/47))
 - Add new rules to stylelint config
 ([#47](https://github.com/fs/react-base/pull/47))
 - Upgrade dependencies
+([#46](https://github.com/fs/react-base/pull/46))
 - Remove functions binding inside jsx
 ([#46](https://github.com/fs/react-base/pull/46))
 - Upgrade Node.js to 6.4.x
+([#44](https://github.com/fs/react-base/pull/44))
 - Add .gitattributes to avoid merge conflicts
 ([#44](https://github.com/fs/react-base/pull/44))
 - Upgrade dependencies. Simplify environment configs
