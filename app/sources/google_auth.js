@@ -5,6 +5,7 @@ export default class GoogleAuthSource {
   static url = `${config.apiTarget}/users/auth/google_oauth2/callback`;
 
   static create(callback) {
+    console.log(config.apiTarget);
     return this.authorize((response) => {
       delete response["g-oauth-window"];
 
