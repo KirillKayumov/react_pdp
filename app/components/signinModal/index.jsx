@@ -60,7 +60,7 @@ export default class SigninModal extends React.Component {
 
   errorMessage() {
     if (this.props.errorMessage) {
-      return <Alert bsStyle="danger">{ this.props.errorMessage }</Alert>
+      return <Alert bsStyle="danger">{ this.props.errorMessage }</Alert>;
     }
   }
 
@@ -86,7 +86,7 @@ export default class SigninModal extends React.Component {
             >
               <ControlLabel>Email</ControlLabel>
               <FormControl
-                type="text"
+                type="email"
                 name="email"
                 onChange={ this.setValue }
               />

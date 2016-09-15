@@ -41,8 +41,8 @@ export default class ApplicationStore {
     }
   }
 
-  handleSignupCreate(data) {
-    if (!data['rails_api_format/error']) {
+  handleSignupCreate(response) {
+    if (response.status == 201) {
       this.closeModal();
     }
   }

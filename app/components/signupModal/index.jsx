@@ -5,13 +5,13 @@ import {
   Button,
   FormGroup,
   FormControl,
-  ControlLabel
+  ControlLabel,
+  Alert
 } from 'react-bootstrap';
 import SignupActions from 'actions/signup';
 import ApplicationActions from 'actions/application';
 import SignupStore from 'stores/signup';
 import ApplicationStore from 'stores/application';
-import SignupModalError from 'components/signupModalError'
 
 @connectToStores
 export default class SignupModal extends React.Component {
@@ -52,7 +52,8 @@ export default class SignupModal extends React.Component {
     const user = this.props.user;
 
     return (
-      user.name.trim().length &&
+      user.first_name.trim().length &&
+      user.last_name.trim().length &&
       user.email.length >= 6 &&
       user.password.length >= 6 &&
       user.password_confirmation.length >= 6 &&
@@ -76,6 +77,20 @@ export default class SignupModal extends React.Component {
     return (this.isValidPassword() && value.length >= 6) ? 'success' : 'error';
   }
 
+  errorMessage() {
+    if (this.props.errorMessages.length) {
+      return (
+        <Alert bsStyle="danger">
+          <ul>
+            { this.props.errorMessages.map((message, index) => {
+              return <li key={index}>{message}</li>;
+            }) }
+          </ul>
+        </Alert>
+      );
+    }
+  }
+
   render() {
     return (
       <Modal
@@ -87,18 +102,29 @@ export default class SignupModal extends React.Component {
           <h3 className="modal-title">Sign Up</h3>
         </Modal.Header>
 
-        <SignupModalError/>
+        { this.errorMessage() }
 
         <form onSubmit={ this.signUp }>
           <Modal.Body>
             <FormGroup
-              controlId="name"
-              validationState={ this.nameValidationState(this.props.user.name) }
+              controlId="first_name"
+              validationState={ this.nameValidationState(this.props.user.first_name) }
             >
-              <ControlLabel>Name</ControlLabel>
+              <ControlLabel>First Name</ControlLabel>
               <FormControl
                 type="text"
-                name="name"
+                name="first_name"
+                onChange={ this.setValue }
+              />
+            </FormGroup>
+            <FormGroup
+              controlId="last_name"
+              validationState={ this.nameValidationState(this.props.user.last_name) }
+            >
+              <ControlLabel>Last Name</ControlLabel>
+              <FormControl
+                type="text"
+                name="last_name"
                 onChange={ this.setValue }
               />
             </FormGroup>
@@ -108,7 +134,7 @@ export default class SignupModal extends React.Component {
             >
               <ControlLabel>Email</ControlLabel>
               <FormControl
-                type="text"
+                type="email"
                 name="email"
                 onChange={ this.setValue }
               />

@@ -11,8 +11,10 @@ export default class SignupActions {
 
   create(user) {
     return (dispatch) => {
-      signupSource.create(user).then((result) => {
-        dispatch(result);
+      signupSource.create(user).then(response => {
+        response.json().then(json => {
+          dispatch({ status: response.status, json: json });
+        });
       });
     };
   }

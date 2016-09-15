@@ -8,7 +8,8 @@ export default class SignupStore {
   static displayName = 'SignupStore'
 
   defaultProps = {
-    name: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     password_confirmation: ''
@@ -16,10 +17,12 @@ export default class SignupStore {
 
   constructor() {
     this.user = Object.assign({}, this.defaultProps);
+    this.errorMessages = [];
 
     this.bindListeners({
       setValue: SignupActions.SET_VALUE,
-      reset: ApplicationActions.CLOSE_MODAL
+      reset: ApplicationActions.CLOSE_MODAL,
+      handleSignupCreate: SignupActions.CREATE
     });
   }
 
@@ -29,5 +32,20 @@ export default class SignupStore {
 
   reset() {
     this.user = Object.assign({}, this.defaultProps);
+    this.errorMessages = [];
+  }
+
+  handleSignupCreate(response) {
+    if (response.status == 201) {
+      this.reset();
+    } else if (response.status == 422) {
+      let validations = response.json['rails_api_format/error']['validations']
+
+      for (let attribute in validations) {
+        for (let message of validations[attribute]) {
+          this.errorMessages.push(`${attribute} ${message}`);
+        }
+      }
+    }
   }
 }

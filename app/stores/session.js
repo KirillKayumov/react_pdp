@@ -17,7 +17,7 @@ export default class SessionStore {
     this.currentUser = Storage.get(STORAGE_KEY) || {};
 
     this.bindListeners({
-      create: [SessionActions.CREATE, SignupActions.CREATE, GoogleAuthActions.CREATE, ProfileActions.UPDATE],
+      create: [SessionActions.CREATE, GoogleAuthActions.CREATE, ProfileActions.UPDATE],
       delete: SessionActions.DELETE,
     });
   }
