@@ -35,8 +35,8 @@ export default class ApplicationStore {
     this.modalName = '';
   }
 
-  handleSessionCreate(data) {
-    if (!data['error']) {
+  handleSessionCreate(response) {
+    if (response.status == 201) {
       this.closeModal();
     }
   }

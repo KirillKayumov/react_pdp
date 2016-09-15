@@ -10,17 +10,19 @@ const STORAGE_KEY = config.storageKey;
 export default class SessionActions {
   create(user) {
     return (dispatch) => {
-      sessionSource.create(user).then(result => {
-        dispatch(result);
+      sessionSource.create(user).then(response => {
+        response.json().then(json => {
+          dispatch({ status: response.status, json: json });
+        });
       });
     };
   }
 
   delete(user) {
     return (dispatch) => {
-      sessionSource.delete(user);
-      Storage.remove(STORAGE_KEY);
-      dispatch(user);
+      sessionSource.delete(user).then(response => {
+        dispatch(response);
+      });
     };
   }
 }

@@ -15,10 +15,12 @@ export default class SigninStore {
 
   constructor() {
     this.user = Object.assign({}, this.defaultProps);
+    this.errorMessage = '';
 
     this.bindListeners({
       setValue: SigninActions.SET_VALUE,
-      reset: ApplicationActions.CLOSE_MODAL
+      reset: ApplicationActions.CLOSE_MODAL,
+      handleSessionCreate: SessionActions.CREATE
     });
   }
 
@@ -28,5 +30,14 @@ export default class SigninStore {
 
   reset() {
     this.user = Object.assign({}, this.defaultProps);
+    this.errorMessage = '';
+  }
+
+  handleSessionCreate(response) {
+    if (response.status == 201) {
+      this.reset();
+    } else if (response.status == 401) {
+      this.errorMessage = response.json.error.error
+    }
   }
 }

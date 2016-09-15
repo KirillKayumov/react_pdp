@@ -5,14 +5,14 @@ import {
   Button,
   FormGroup,
   FormControl,
-  ControlLabel
+  ControlLabel,
+  Alert
 } from 'react-bootstrap';
 import session from 'services/session';
 import ApplicationActions from 'actions/application';
 import SigninActions from 'actions/signin';
 import ApplicationStore from 'stores/application';
 import SigninStore from 'stores/signin';
-import SigninModalError from 'components/signinModalError'
 import GoogleAuthLink from 'components/google_auth_link'
 
 @connectToStores
@@ -58,6 +58,12 @@ export default class SigninModal extends React.Component {
     return value.length >= 6 ? 'success' : 'error';
   }
 
+  errorMessage() {
+    if (this.props.errorMessage) {
+      return <Alert bsStyle="danger">{ this.props.errorMessage }</Alert>
+    }
+  }
+
   render() {
     return (
       <Modal
@@ -69,7 +75,7 @@ export default class SigninModal extends React.Component {
           <h3 className="modal-title">Sign In</h3>
         </Modal.Header>
 
-        <SigninModalError/>
+        { this.errorMessage() }
         <GoogleAuthLink/>
 
         <form onSubmit={ this.signIn }>

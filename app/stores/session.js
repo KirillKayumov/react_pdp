@@ -22,14 +22,19 @@ export default class SessionStore {
     });
   }
 
-  create(data) {
-    if (data['user']) {
-      this.currentUser = data['user'];
-      Storage.set(STORAGE_KEY, data['user']);
+  create(response) {
+    if (response.status == 201) {
+      let user = response.json.user;
+
+      this.currentUser = user;
+      Storage.set(STORAGE_KEY, user);
     }
   }
 
-  delete() {
-    this.currentUser = {};
+  delete(response) {
+    if (response.status == 200) {
+      this.currentUser = {};
+      Storage.remove(STORAGE_KEY);
+    }
   }
 }
