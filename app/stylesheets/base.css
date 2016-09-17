@@ -1,3 +1,28 @@
 :root {
   font-size: 16px;
 }
+
+.google_oauth2 {
+  @mixin socicon;
+
+  &:before {
+    content: "c";
+  }
+
+  &:hover, &--connected {
+    color: #ff765f;
+  }
+}
+
+.facebook {
+  @mixin socicon;
+  font-size: 2rem;
+
+  &:before {
+    content: "b";
+  }
+
+  &:hover, &--connected {
+    color: #568dd8;
+  }
+}

@@ -4,8 +4,8 @@ import Storage from 'lib/storage';
 import SessionActions from 'actions/session';
 import SignupActions from 'actions/signup';
 import config from 'config';
-import GoogleAuthActions from 'actions/google_auth';
 import ProfileActions from 'actions/profile';
+import GoogleAuthActions from 'actions/googleAuth';
 
 const STORAGE_KEY = config.storageKey;
 
@@ -17,17 +17,14 @@ export default class SessionStore {
     this.currentUser = Storage.get(STORAGE_KEY) || {};
 
     this.bindListeners({
-      create: [SessionActions.CREATE, GoogleAuthActions.CREATE, ProfileActions.UPDATE],
-      delete: SessionActions.DELETE,
+      create: [SessionActions.CREATE, GoogleAuthActions.CONNECT, ProfileActions.UPDATE, GoogleAuthActions.DELETE],
+      delete: SessionActions.DELETE
     });
   }
 
   create(response) {
-    if (response.status == 201) {
-      let user = response.json.user;
-
-      this.currentUser = user;
-      Storage.set(STORAGE_KEY, user);
+    if (response.status == 200 || response.status == 201) {
+      this._saveUser(response.json.user);
     }
   }
 
@@ -36,5 +33,10 @@ export default class SessionStore {
       this.currentUser = {};
       Storage.remove(STORAGE_KEY);
     }
+  }
+
+  _saveUser(user) {
+    this.currentUser = Object.assign(this.currentUser, user);
+    Storage.set(STORAGE_KEY, Object.assign(Storage.get(STORAGE_KEY) || {}, user));
   }
 }

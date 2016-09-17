@@ -14,6 +14,14 @@ export default class Flash extends React.Component {
     return FlashStore.getState();
   }
 
+  componentDidUpdate() {
+    if (this.props.message != '') {
+      setTimeout(() => {
+        FlashActions.dismiss();
+      }, 3000);
+    }
+  }
+
   handleDismiss() {
     FlashActions.dismiss();
   }

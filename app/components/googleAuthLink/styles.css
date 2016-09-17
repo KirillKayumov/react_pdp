@@ -1,0 +1,11 @@
+.google {
+  @mixin socicon;
+
+  &:before {
+    content: "c";
+  }
+
+  &:hover {
+    color: #ff765f;
+  }
+}

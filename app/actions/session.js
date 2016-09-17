@@ -1,6 +1,5 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
-import Storage from 'lib/storage';
 import sessionSource from 'sources/session';
 import config from 'config';
 
@@ -8,13 +7,17 @@ const STORAGE_KEY = config.storageKey;
 
 @createActions(Alt)
 export default class SessionActions {
-  create(user) {
+  create(user, response = undefined) {
     return (dispatch) => {
-      sessionSource.create(user).then(response => {
-        response.json().then(json => {
-          dispatch({ status: response.status, json: json });
+      if (response) {
+        dispatch(response);
+      } else {
+        sessionSource.create(user).then(response => {
+          response.json().then(json => {
+            dispatch({ status: response.status, json });
+          });
         });
-      });
+      }
     };
   }
 

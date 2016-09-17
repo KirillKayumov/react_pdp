@@ -1,0 +1,23 @@
+@define-mixin socicon {
+  text-transform: none;
+  color: $social-icon-color;
+  font-size: 36px;
+  font-family: "socicon";
+  font-weight: normal;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  speak: none;
+  margin-left: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:visited {
+    color: $social-icon-color;
+  }
+
+  &:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

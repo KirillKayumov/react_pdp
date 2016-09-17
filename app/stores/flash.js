@@ -1,7 +1,7 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
 import FlashActions from 'actions/flash';
-import SignupActions from 'actions/signup';
+import ProfileActions from 'actions/profile'
 
 @createStore(Alt)
 export default class FlashStore {
@@ -12,7 +12,7 @@ export default class FlashStore {
 
     this.bindListeners({
       handleDismiss: FlashActions.DISMISS,
-      handleSignupCreate: SignupActions.CREATE
+      set: FlashActions.SET
     });
   }
 
@@ -20,11 +20,7 @@ export default class FlashStore {
     this.message = '';
   }
 
-  handleSignupCreate(response) {
-    if (response.status == 201) {
-      this.message = `
-        You will receive an email with instructions for how to confirm your email address in a few minutes.
-      `;
-    }
+  set(message) {
+    this.message = message;
   }
 }

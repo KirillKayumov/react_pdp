@@ -13,7 +13,7 @@ import ApplicationActions from 'actions/application';
 import SigninActions from 'actions/signin';
 import ApplicationStore from 'stores/application';
 import SigninStore from 'stores/signin';
-import GoogleAuthLink from 'components/google_auth_link'
+import GoogleAuthLink from 'components/googleAuthLink'
 
 @connectToStores
 export default class SigninModal extends React.Component {

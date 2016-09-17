@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Main from 'components/main';
-import TodoLayout from 'components/todo/layout';
 import Home from 'components/home';
 import session from 'services/session';
 
