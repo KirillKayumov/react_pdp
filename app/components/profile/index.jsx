@@ -15,6 +15,7 @@ import ProfileActions from 'actions/profile'
 import Flash from 'components/flash'
 import styles from './styles'
 import GoogleAuthLink from 'components/googleAuthLink'
+import FacebookAuthLink from 'components/facebookAuthLink'
 
 @connectToStores
 export default class Profile extends React.Component {
@@ -63,6 +64,7 @@ export default class Profile extends React.Component {
           <Col md= { 3 }>
             <div className={ styles.identities }>
               <GoogleAuthLink/>
+              <FacebookAuthLink/>
             </div>
           </Col>
         </Row>

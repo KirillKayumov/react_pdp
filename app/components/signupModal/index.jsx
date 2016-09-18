@@ -12,6 +12,8 @@ import SignupActions from 'actions/signup';
 import ApplicationActions from 'actions/application';
 import SignupStore from 'stores/signup';
 import ApplicationStore from 'stores/application';
+import GoogleAuthLink from 'components/googleAuthLink';
+import FacebookAuthLink from 'components/facebookAuthLink';
 
 @connectToStores
 export default class SignupModal extends React.Component {
@@ -103,6 +105,8 @@ export default class SignupModal extends React.Component {
         </Modal.Header>
 
         { this.errorMessage() }
+        <GoogleAuthLink/>
+        <FacebookAuthLink/>
 
         <form onSubmit={ this.signUp }>
           <Modal.Body>

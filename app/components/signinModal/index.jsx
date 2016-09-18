@@ -14,6 +14,7 @@ import SigninActions from 'actions/signin';
 import ApplicationStore from 'stores/application';
 import SigninStore from 'stores/signin';
 import GoogleAuthLink from 'components/googleAuthLink'
+import FacebookAuthLink from 'components/facebookAuthLink';
 
 @connectToStores
 export default class SigninModal extends React.Component {
@@ -77,6 +78,7 @@ export default class SigninModal extends React.Component {
 
         { this.errorMessage() }
         <GoogleAuthLink/>
+        <FacebookAuthLink/>
 
         <form onSubmit={ this.signIn }>
           <Modal.Body>

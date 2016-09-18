@@ -2,6 +2,7 @@ import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
 import sessionSource from 'sources/session';
 import config from 'config';
+import FacebookAuthSource from 'sources/facebookAuth';
 
 const STORAGE_KEY = config.storageKey;
 
@@ -24,6 +25,9 @@ export default class SessionActions {
   delete(user) {
     return (dispatch) => {
       sessionSource.delete(user).then(response => {
+        if (response.status == 200) {
+          FacebookAuthSource.logout();
+        }
         dispatch(response);
       });
     };

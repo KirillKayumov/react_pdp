@@ -4,6 +4,8 @@ import session from 'services/session';
 import ProfileActions from 'actions/profile';
 import SessionActions from 'actions/session';
 import SessionStore from 'stores/session';
+import GoogleAuthActions from 'actions/googleAuth';
+import FacebookAuthActions from 'actions/facebookAuth';
 
 @createStore(Alt)
 export default class ProfileStore {
@@ -15,7 +17,7 @@ export default class ProfileStore {
 
     this.bindListeners({
       setValue: ProfileActions.SET_VALUE,
-      setProfile: SessionActions.CREATE,
+      setProfile: [SessionActions.CREATE, GoogleAuthActions.CONNECT, FacebookAuthActions.CONNECT],
       handleProfileUpdate: ProfileActions.UPDATE
     });
   }
