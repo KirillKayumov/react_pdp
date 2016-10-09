@@ -1,6 +1,6 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
-import googleAuthSource from 'sources/googleAuth';
+import GoogleAuthSource from 'sources/googleAuth';
 import SessionActions from 'actions/session';
 import FlashActions from 'actions/flash';
 import ProfileActions from 'actions/profile';
@@ -8,15 +8,15 @@ import ProfileActions from 'actions/profile';
 @createActions(Alt)
 export default class GoogleAuthActions {
   authenticate() {
-    return googleAuthSource.authenticate((promise) => {
+    return GoogleAuthSource.authenticate((promise) => {
       promise.then(response => {
         switch (response.status) {
-          case 201:
-            this.authenticated(response);
-            break;
-          case 401:
-            this.authenticateFailed(response);
-            break;
+        case 201:
+          this.authenticated(response);
+          break;
+        case 401:
+          this.authenticateFailed(response);
+          break;
         }
       });
     });
@@ -39,16 +39,16 @@ export default class GoogleAuthActions {
 
   connect() {
     return (dispatch) => {
-      googleAuthSource.connect((promise) => {
+      GoogleAuthSource.connect((promise) => {
         promise.then(response => {
           switch (response.status) {
-            case 201:
-              this.connected(response);
-              break;
+          case 201:
+            this.connected(response);
+            break;
           }
         });
       });
-    }
+    };
   }
 
   connected(response) {
@@ -60,12 +60,12 @@ export default class GoogleAuthActions {
 
   delete() {
     return (dispatch) => {
-      googleAuthSource.delete().then(response => {
+      GoogleAuthSource.delete().then(response => {
         ProfileActions.loaded(response);
         FlashActions.set('Google account was successfully deleted.', 'success');
 
         dispatch(response);
       });
-    }
+    };
   }
 }

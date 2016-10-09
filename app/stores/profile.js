@@ -1,11 +1,6 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
-import session from 'services/session';
 import ProfileActions from 'actions/profile';
-import SessionActions from 'actions/session';
-import SessionStore from 'stores/session';
-import GoogleAuthActions from 'actions/googleAuth';
-import FacebookAuthActions from 'actions/facebookAuth';
 
 @createStore(Alt)
 export default class ProfileStore {
@@ -19,9 +14,7 @@ export default class ProfileStore {
       saveProfile: [ProfileActions.LOADED, ProfileActions.UPDATED],
       reset: [ProfileActions.RESET, ProfileActions.LOAD_FAILED],
       setValue: ProfileActions.SET_VALUE,
-      handleUpdateFailed: ProfileActions.UPDATE_FAILED,
-      // setProfile: [SessionActions.CREATE, GoogleAuthActions.CONNECT, FacebookAuthActions.CONNECT],
-    //   handleProfileUpdate: ProfileActions.UPDATE
+      handleUpdateFailed: ProfileActions.UPDATE_FAILED
     });
   }
 
@@ -42,10 +35,10 @@ export default class ProfileStore {
   handleUpdateFailed(json) {
     this.errorMessages = [];
 
-    let validations = json['rails_api_format/error']['validations'];
+    const validations = json['rails_api_format/error']['validations'];
 
-    for (let attribute in validations) {
-      for (let message of validations[attribute]) {
+    for (const attribute in validations) {
+      for (const message of validations[attribute]) {
         this.errorMessages.push(`${attribute} ${message}`);
       }
     }

@@ -3,7 +3,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Redirect } from 'react-router';
 import appHistory from 'services/history';
-import { requireAuth } from 'helpers/routes';
 import Application from 'components/application';
 import Home from 'components/home';
 import EmailConfirmedPage from 'components/emailConfirmedPage';

@@ -2,11 +2,10 @@ import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
 import SignInActions from 'actions/signIn';
 import ApplicationActions from 'actions/application';
-import SessionActions from 'actions/session';
 
 @createStore(Alt)
-export default class SigninStore {
-  static displayName = 'SigninStore'
+export default class SignInStore {
+  static displayName = 'SignInStore'
 
   defaultProps = {
     email: '',
@@ -20,7 +19,7 @@ export default class SigninStore {
       setValue: SignInActions.SET_VALUE,
       handleSignInFailed: SignInActions.SIGN_IN_FAILED,
       reset: ApplicationActions.CLOSE_MODAL
-    })
+    });
   }
 
   setValue(obj) {

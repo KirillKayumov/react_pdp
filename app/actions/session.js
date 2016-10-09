@@ -2,11 +2,9 @@ import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
 import SignOutSource from 'sources/signOut';
 import config from 'config';
-import FacebookAuthSource from 'sources/facebookAuth';
 import Storage from 'lib/storage';
 import appHistory from 'services/history';
 import { paths } from 'helpers/routes';
-import FlashActions from 'actions/flash';
 import ApplicationActions from 'actions/application';
 
 const STORAGE_KEY = config.storageKey;
@@ -31,7 +29,12 @@ export default class SessionActions {
     SignOutSource.perform(user);
     Storage.remove(STORAGE_KEY);
     appHistory.push(paths.home());
-    FB.logout();
+
+    FB.getLoginStatus(response => {
+      if (response.status == 'connected') {
+        FB.logout();
+      }
+    });
 
     return user;
   }

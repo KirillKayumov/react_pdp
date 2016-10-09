@@ -1,8 +1,6 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
-import GoogleAuthActions from 'actions/googleAuth';
 import PasswordActions from 'actions/password';
-import FacebookAuthActions from 'actions/facebookAuth';
 
 @createStore(Alt)
 export default class PasswordStore {

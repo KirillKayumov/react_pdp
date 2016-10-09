@@ -9,7 +9,7 @@ export default class GoogleAuthSource {
   static authenticate(callback) {
     return this._googleAuthorize((googleAuthorizeResponse) => {
       delete googleAuthorizeResponse["g-oauth-window"];
-      let response = this._backendAuthenticate(googleAuthorizeResponse);
+      const response = this._backendAuthenticate(googleAuthorizeResponse);
 
       callback(response);
     });
@@ -18,7 +18,7 @@ export default class GoogleAuthSource {
   static connect(callback) {
     return this._googleAuthorize((authorizeResponse) => {
       delete authorizeResponse["g-oauth-window"];
-      let response = this._backendConnect(authorizeResponse);
+      const response = this._backendConnect(authorizeResponse);
 
       callback(response);
     });
@@ -27,7 +27,7 @@ export default class GoogleAuthSource {
   static delete() {
     return requestAuth(this.deleteUrl, {
       method: 'DELETE'
-    })
+    });
   }
 
   static _googleAuthorize(callback) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import {
   Grid,
@@ -10,28 +10,34 @@ import {
   ControlLabel,
   Alert
 } from 'react-bootstrap';
-import ProfileStore from 'stores/profile'
-import ProfileActions from 'actions/profile'
-import Flash from 'components/flash'
-import styles from './styles'
-import GoogleAuthLink from 'components/googleAuthLink'
-import FacebookAuthLink from 'components/facebookAuthLink'
-import Session from 'services/session';
-import appHistory from 'services/history';
-import { paths } from 'helpers/routes';
-import GoogleAuthActions from 'actions/googleAuth';
-import FacebookAuthActions from 'actions/facebookAuth';
+import ProfileStore from 'stores/profile';
+import ProfileActions from 'actions/profile';
+import styles from './styles';
+import GoogleAuthLink from 'components/googleAuthLink';
+import FacebookAuthLink from 'components/facebookAuthLink';
 
 @connectToStores
 export default class Profile extends React.Component {
+  static propTypes = {
+    errorMessages: PropTypes.arrayOf(PropTypes.string),
+    profile: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      bio: PropTypes.string,
+      email: PropTypes.string,
+      current_password: PropTypes.string,
+      password: PropTypes.string,
+      password_confirmation: PropTypes.string,
+      identities: PropTypes.arrayOf(PropTypes.object)
+    })
+  }
+
   static getStores(props) {
     return [ProfileStore];
   }
 
   static getPropsFromStores(props) {
-    return {
-      ...ProfileStore.getState()
-    };
+    return ProfileStore.getState();
   }
 
   componentDidMount() {
@@ -58,7 +64,7 @@ export default class Profile extends React.Component {
         <Alert bsStyle="danger">
           <ul>
             { this.props.errorMessages.map((message, index) => {
-              return <li key={index}>{message}</li>;
+              return <li key={ index }>{ message }</li>;
             }) }
           </ul>
         </Alert>
@@ -107,31 +113,52 @@ export default class Profile extends React.Component {
             <form onSubmit={ this.submit }>
               <FormGroup controlId="first_name">
                 <ControlLabel>First name</ControlLabel>
-                <FormControl type="text" name="first_name" value={ this.props.profile.first_name } onChange={ this.setValue }/>
+                <FormControl type="text" name="first_name"
+                  value={ this.props.profile.first_name }
+                  onChange={ this.setValue }
+                />
               </FormGroup>
               <FormGroup controlId="last_name">
                 <ControlLabel>Last name</ControlLabel>
-                <FormControl type="text" name="last_name" value={ this.props.profile.last_name } onChange={ this.setValue }/>
+                <FormControl type="text" name="last_name"
+                  value={ this.props.profile.last_name }
+                  onChange={ this.setValue }
+                />
               </FormGroup>
               <FormGroup controlId="bio">
                 <ControlLabel>Bio</ControlLabel>
-                <FormControl componentClass="textarea" name="bio" value={ this.props.profile.bio } onChange={ this.setValue }/>
+                <FormControl componentClass="textarea" name="bio"
+                  value={ this.props.profile.bio }
+                  onChange={ this.setValue }
+                />
               </FormGroup>
               <FormGroup controlId="email">
                 <ControlLabel>Email*</ControlLabel>
-                <FormControl type="email" name="email" value={ this.props.profile.email } onChange={ this.setValue }/>
+                <FormControl type="email" name="email"
+                  value={ this.props.profile.email }
+                  onChange={ this.setValue }
+                />
               </FormGroup>
               <FormGroup controlId="current_password">
                 <ControlLabel>Current password*</ControlLabel>
-                <FormControl type="password" name="current_password" value={ this.props.profile.current_password } onChange={ this.setValue }/>
+                <FormControl type="password" name="current_password"
+                  value={ this.props.profile.current_password }
+                  onChange={ this.setValue }
+                />
               </FormGroup>
               <FormGroup controlId="password">
                 <ControlLabel>Password</ControlLabel>
-                <FormControl type="password" name="password" value={ this.props.profile.password } onChange={ this.setValue }/>
+                <FormControl type="password" name="password"
+                  value={ this.props.profile.password }
+                  onChange={ this.setValue }
+                />
               </FormGroup>
               <FormGroup controlId="password_confirmation">
                 <ControlLabel>Password Confirmation</ControlLabel>
-                <FormControl type="password" name="password_confirmation" value={ this.props.profile.password_confirmation } onChange={ this.setValue }/>
+                <FormControl type="password" name="password_confirmation"
+                  value={ this.props.profile.password_confirmation }
+                  onChange={ this.setValue }
+                />
               </FormGroup>
               <Button bsStyle="primary" type="submit">
                 Save

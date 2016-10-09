@@ -8,37 +8,47 @@ import {
   ControlLabel,
   Alert
 } from 'react-bootstrap';
-import SignupActions from 'actions/signup';
+import SignUpActions from 'actions/signUp';
 import ApplicationActions from 'actions/application';
-import SignupStore from 'stores/signup';
+import SignUpStore from 'stores/signUp';
 import ApplicationStore from 'stores/application';
 import GoogleAuthLink from 'components/googleAuthLink';
 import FacebookAuthLink from 'components/facebookAuthLink';
-import GoogleAuthActions from 'actions/googleAuth';
-import FacebookAuthActions from 'actions/facebookAuth';
 
 @connectToStores
-export default class SignupModal extends Component {
+export default class SignUpModal extends Component {
+  static propTypes = {
+    errorMessages: PropTypes.arrayOf(PropTypes.string),
+    isModalOpen: PropTypes.bool,
+    user: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      password: PropTypes.string,
+      password_confirmation: PropTypes.string
+    })
+  }
+
   static getStores(props) {
-    return [SignupStore, ApplicationStore];
+    return [SignUpStore, ApplicationStore];
   }
 
   static getPropsFromStores(props) {
     return {
-      ...SignupStore.getState(),
+      ...SignUpStore.getState(),
       ...ApplicationStore.getState()
     };
   }
 
   setValue(event) {
-    SignupActions.setValue(event.target.name, event.target.value);
+    SignUpActions.setValue(event.target.name, event.target.value);
   }
 
   signUp = (event) => {
     event.preventDefault();
 
     if (this.isValid()) {
-      SignupActions.perform(this.props.user);
+      SignUpActions.perform(this.props.user);
     }
   }
 
@@ -71,20 +81,12 @@ export default class SignupModal extends Component {
         <Alert bsStyle="danger">
           <ul>
             { this.props.errorMessages.map((message, index) => {
-              return <li key={index}>{message}</li>;
+              return <li key={ index }>{ message }</li>;
             }) }
           </ul>
         </Alert>
       );
     }
-  }
-
-  handleGoogleClick() {
-    GoogleAuthActions.authenticate();
-  }
-
-  handleFacebookClick() {
-    FacebookAuthActions.authenticate();
   }
 
   render() {

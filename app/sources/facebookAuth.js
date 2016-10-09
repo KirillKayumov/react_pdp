@@ -8,7 +8,7 @@ export default class FacebookAuthSource {
 
   static authenticate(callback) {
     return this._facebookAuthorize((response) => {
-      let backendResponse = this._backendAuthenticate(response.authResponse);
+      const backendResponse = this._backendAuthenticate(response.authResponse);
 
       callback(backendResponse);
     });
@@ -16,7 +16,7 @@ export default class FacebookAuthSource {
 
   static connect(callback) {
     return this._facebookAuthorize((response) => {
-      let backendResponse = this._backendConnect(response.authResponse);
+      const backendResponse = this._backendConnect(response.authResponse);
 
       callback(backendResponse);
     });

@@ -4,8 +4,7 @@ import Modals from 'components/modals';
 import Footer from 'components/footer';
 import styles from './styles';
 import Flash from 'components/flash';
-import { Grid } from 'react-bootstrap';
-import config from 'config'
+import config from 'config';
 
 export default class Application extends Component {
   componentDidMount() {

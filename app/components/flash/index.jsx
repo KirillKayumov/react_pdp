@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import { Alert } from 'react-bootstrap';
 import FlashActions from 'actions/flash';
@@ -7,6 +7,11 @@ import styles from './styles';
 
 @connectToStores
 export default class Flash extends React.Component {
+  static propTypes = {
+    message: PropTypes.string,
+    style: PropTypes.string
+  }
+
   static getStores(props) {
     return [FlashStore];
   }
@@ -33,7 +38,7 @@ export default class Flash extends React.Component {
         <div className={ styles.flash }>
           <Alert bsStyle={ this.props.style } onDismiss={ this.handleDismiss }>{ this.props.message }</Alert>
         </div>
-      )
+      );
     } else {
       return null;
     }

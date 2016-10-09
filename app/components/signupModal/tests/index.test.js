@@ -2,25 +2,25 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Modal } from 'react-bootstrap';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
-import SignupModal from 'components/signupModal';
+import SignUpModal from 'components/signUpModal';
 
 /* eslint-disable max-statements */
-describe('Signup Modal', () => {
+describe('SignUp Modal', () => {
   const state = { isModalOpen: true };
-  const signupModalComponent = mount(<SignupModal />);
+  const signUpModalComponent = mount(<SignUpModal />);
   let modalDialogContent;
 
   beforeAll(() => {
-    signupModalComponent.setState(state);
-    modalDialogContent = signupModalComponent.find(Modal).node._modal.getDialogElement();
+    signUpModalComponent.setState(state);
+    modalDialogContent = signUpModalComponent.find(Modal).node._modal.getDialogElement();
   });
 
   afterAll(() => {
-    signupModalComponent.unmount();
+    signUpModalComponent.unmount();
   });
 
   it('has Modal component', () => {
-    expect(signupModalComponent.find(Modal).length).toEqual(1);
+    expect(signUpModalComponent.find(Modal).length).toEqual(1);
   });
 
   it('renders Modal with form fields', () => {

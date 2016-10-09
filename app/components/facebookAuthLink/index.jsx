@@ -1,11 +1,12 @@
-import React from 'react';
-import connectToStores from 'alt-utils/lib/connectToStores'
-import FacebookAuthActions from 'actions/facebookAuth'
-import FacebookAuthStore from 'stores/facebookAuth'
-import session from 'services/session'
-import config from 'config'
+import React, { PropTypes } from 'react';
+import FacebookAuthActions from 'actions/facebookAuth';
 
 export default class FacebookAuthLink extends React.Component {
+  static propTypes = {
+    connected: PropTypes.bool,
+    userAuthenticated: PropTypes.bool
+  }
+
   handleClick = (event) => {
     event.preventDefault();
 
@@ -30,7 +31,7 @@ export default class FacebookAuthLink extends React.Component {
 
   render() {
     return (
-      <a className={ this.className() } onClick={ this.handleClick }></a>
-    )
+      <a className={ this.className() } onClick={ this.handleClick }/>
+    );
   }
 }

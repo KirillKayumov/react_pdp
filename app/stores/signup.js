@@ -1,11 +1,11 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
-import SignupActions from 'actions/signup';
+import SignUpActions from 'actions/signUp';
 import ApplicationActions from 'actions/application';
 
 @createStore(Alt)
-export default class SignupStore {
-  static displayName = 'SignupStore'
+export default class SignUpStore {
+  static displayName = 'SignUpStore'
 
   defaultProps = {
     first_name: '',
@@ -20,11 +20,9 @@ export default class SignupStore {
     this.errorMessages = [];
 
     this.bindListeners({
-      setValue: SignupActions.SET_VALUE,
-      handleSignUpFailed: SignupActions.SIGN_UP_FAILED,
+      setValue: SignUpActions.SET_VALUE,
+      handleSignUpFailed: SignUpActions.SIGN_UP_FAILED,
       reset: ApplicationActions.CLOSE_MODAL
-    //   reset: ApplicationActions.CLOSE_MODAL,
-    //   handleSignupCreate: SignupActions.CREATE
     });
   }
 
@@ -37,25 +35,11 @@ export default class SignupStore {
     this.errorMessages = [];
   }
 
-  handleSignupCreate(response) {
-    if (response.status == 201) {
-      this.reset();
-    } else if (response.status == 422) {
-      let validations = response.json['rails_api_format/error']['validations']
-
-      for (let attribute in validations) {
-        for (let message of validations[attribute]) {
-          this.errorMessages.push(`${attribute} ${message}`);
-        }
-      }
-    }
-  }
-
   handleSignUpFailed(json) {
-    let validations = json['rails_api_format/error']['validations']
+    const validations = json['rails_api_format/error']['validations'];
 
-    for (let attribute in validations) {
-      for (let message of validations[attribute]) {
+    for (const attribute in validations) {
+      for (const message of validations[attribute]) {
         this.errorMessages.push(`${attribute} ${message}`);
       }
     }

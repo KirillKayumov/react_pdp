@@ -1,4 +1,3 @@
-import React from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import React, { Component, PropTypes } from 'react';
 import { Nav } from 'react-bootstrap';
@@ -8,7 +7,7 @@ import NavigationLeftStore from 'stores/navigationLeft';
 @connectToStores
 export default class NavigationLeft extends Component {
   static propTypes = {
-    items: PropTypes.arrayOf(
+    links: PropTypes.arrayOf(
       PropTypes.shape({
         route: PropTypes.string,
         title: PropTypes.string

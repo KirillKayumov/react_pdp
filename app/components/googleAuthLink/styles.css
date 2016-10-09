@@ -1,7 +1,7 @@
 .google {
   @mixin socicon;
 
-  &:before {
+  &::before {
     content: "c";
   }
 

@@ -14,6 +14,6 @@ export default class ProfileSource {
     return requestAuth(this.url, {
       method: 'PUT',
       body: JSON.stringify(profile)
-    })
+    });
   }
 }

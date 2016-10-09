@@ -1,6 +1,5 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
-import passwordSource from 'sources/password';
 import ProfileActions from 'actions/profile';
 import ApplicationActions from 'actions/application';
 

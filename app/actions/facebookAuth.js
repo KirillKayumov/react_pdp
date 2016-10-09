@@ -1,6 +1,6 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
-import facebookAuthSource from 'sources/facebookAuth';
+import FacebookAuthSource from 'sources/facebookAuth';
 import SessionActions from 'actions/session';
 import FlashActions from 'actions/flash';
 import ProfileActions from 'actions/profile';
@@ -8,15 +8,15 @@ import ProfileActions from 'actions/profile';
 @createActions(Alt)
 export default class FacebookAuthActions {
   authenticate() {
-    return facebookAuthSource.authenticate((promise) => {
+    return FacebookAuthSource.authenticate((promise) => {
       promise.then(response => {
         switch (response.status) {
-          case 201:
-            this.authenticated(response);
-            break;
-          case 401:
-            this.authenticateFailed(response);
-            break;
+        case 201:
+          this.authenticated(response);
+          break;
+        case 401:
+          this.authenticateFailed(response);
+          break;
         }
       });
     });
@@ -39,18 +39,18 @@ export default class FacebookAuthActions {
 
   connect() {
     return (dispatch) => {
-      facebookAuthSource.connect((promise) => {
+      FacebookAuthSource.connect((promise) => {
         promise.then(response => {
           switch (response.status) {
-            case 201:
-              this.connected(response);
-              break;
+          case 201:
+            this.connected(response);
+            break;
           }
 
           dispatch(response);
         });
       });
-    }
+    };
   }
 
   connected(response) {
@@ -62,12 +62,12 @@ export default class FacebookAuthActions {
 
   delete() {
     return (dispatch) => {
-      facebookAuthSource.delete().then(response => {
+      FacebookAuthSource.delete().then(response => {
         ProfileActions.loaded(response);
         FlashActions.set('Facebook account was successfully deleted.', 'success');
 
         dispatch(response);
       });
-    }
+    };
   }
 }

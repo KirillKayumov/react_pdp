@@ -5,21 +5,17 @@ import {
   Button,
   FormGroup,
   FormControl,
-  ControlLabel,
-  Alert
+  ControlLabel
 } from 'react-bootstrap';
-import session from 'services/session';
 import ApplicationActions from 'actions/application';
 import ApplicationStore from 'stores/application';
-import SigninStore from 'stores/signin';
-import GoogleAuthLink from 'components/googleAuthLink'
+import SignInStore from 'stores/signIn';
+import GoogleAuthLink from 'components/googleAuthLink';
 import FacebookAuthLink from 'components/facebookAuthLink';
 import SignInActions from 'actions/signIn';
-import GoogleAuthActions from 'actions/googleAuth';
-import FacebookAuthActions from 'actions/facebookAuth';
 
 @connectToStores
-export default class SigninModal extends Component {
+export default class SignInModal extends Component {
   static propTypes = {
     isModalOpen: PropTypes.bool,
     user: PropTypes.shape({
@@ -29,12 +25,12 @@ export default class SigninModal extends Component {
   }
 
   static getStores(props) {
-    return [SigninStore, ApplicationStore];
+    return [SignInStore, ApplicationStore];
   }
 
   static getPropsFromStores(props) {
     return {
-      ...SigninStore.getState(),
+      ...SignInStore.getState(),
       ...ApplicationStore.getState()
     };
   }
@@ -59,10 +55,6 @@ export default class SigninModal extends Component {
 
   validationState(value) {
     return value.length >= 6 ? 'success' : 'error';
-  }
-
-  handleFacebookClick() {
-    FacebookAuthActions.authenticate();
   }
 
   render() {

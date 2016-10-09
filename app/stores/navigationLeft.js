@@ -25,7 +25,7 @@ export default class NavigationLeftStore {
     this.bindListeners({
       handleSessionCreate: SessionActions.CREATE,
       handleSessionDelete: SessionActions.DELETE
-    })
+    });
   }
 
   handleSessionCreate() {

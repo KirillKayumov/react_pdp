@@ -8,6 +8,6 @@ export default class PasswordSource {
     return requestAuth(this.url, {
       method: 'PUT',
       body: JSON.stringify({ password })
-    })
+    });
   }
 }

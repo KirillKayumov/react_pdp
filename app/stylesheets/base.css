@@ -5,11 +5,12 @@
 .google_oauth2 {
   @mixin socicon;
 
-  &:before {
+  &::before {
     content: "c";
   }
 
-  &:hover, &--connected {
+  &:hover,
+  &--connected {
     color: #ff765f;
   }
 }
@@ -18,11 +19,12 @@
   @mixin socicon;
   font-size: 2rem;
 
-  &:before {
+  &::before {
     content: "b";
   }
 
-  &:hover, &--connected {
+  &:hover,
+  &--connected {
     color: #568dd8;
   }
 }

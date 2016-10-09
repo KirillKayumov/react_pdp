@@ -1,7 +1,6 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
 import FlashActions from 'actions/flash';
-import ProfileActions from 'actions/profile'
 
 @createStore(Alt)
 export default class FlashStore {

@@ -3,7 +3,7 @@ import session from 'services/session';
 export const paths = {
   home() { return '/'; },
   profile() { return '/profile'; },
-  emailConfirmed() { return '/email_confirmed' }
+  emailConfirmed() { return '/email_confirmed'; }
 };
 
 export function requireAuth(nextState, replace) {

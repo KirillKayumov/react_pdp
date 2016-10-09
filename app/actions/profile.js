@@ -1,23 +1,22 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
-import profileSource from 'sources/profile';
+import ProfileSource from 'sources/profile';
 import FlashActions from 'actions/flash';
-import SessionActions from 'actions/session';
+import ApplicationActions from 'actions/application';
 import appHistory from 'services/history';
 import { paths } from 'helpers/routes';
-import ApplicationActions from 'actions/application';
 
 @createActions(Alt)
 export default class ProfileActions {
   load() {
-    return profileSource.load().then(response => {
+    return ProfileSource.load().then(response => {
       switch (response.status) {
-        case 200:
-          this.loaded(response);
-          break;
-        case 401:
-          this.loadFailed(response);
-          break;
+      case 200:
+        this.loaded(response);
+        break;
+      case 401:
+        this.loadFailed(response);
+        break;
       }
     });
   }
@@ -26,12 +25,12 @@ export default class ProfileActions {
     return (dispatch) => {
       response.json().then(json => {
         if (!json.user.password_set_by_user) {
-          ApplicationActions.openModal({ name: 'password'});
+          ApplicationActions.openModal({ name: 'password' });
         }
 
         dispatch(json);
       });
-    }
+    };
   }
 
   loadFailed(response) {
@@ -46,14 +45,14 @@ export default class ProfileActions {
   }
 
   update(profile) {
-    return profileSource.update(profile).then(response => {
+    return ProfileSource.update(profile).then(response => {
       switch (response.status) {
-        case 200:
-          this.updated(response);
-          break;
-        case 422:
-          this.updateFailed(response);
-          break;
+      case 200:
+        this.updated(response);
+        break;
+      case 422:
+        this.updateFailed(response);
+        break;
       }
     });
   }
@@ -62,7 +61,7 @@ export default class ProfileActions {
     return (dispatch) => {
       FlashActions.set('Your account has been updated successfully.', 'success');
       response.json().then(json => dispatch(json));
-    }
+    };
   }
 
   updateFailed(response) {

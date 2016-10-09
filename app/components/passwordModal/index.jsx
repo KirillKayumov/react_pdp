@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import {
   Modal,
   Button,
   FormGroup,
-  FormControl,
-  ControlLabel
+  FormControl
 } from 'react-bootstrap';
 import ApplicationStore from 'stores/application';
 import PasswordStore from 'stores/password';
 import ApplicationActions from 'actions/application';
 import PasswordActions from 'actions/password';
 import ProfileStore from 'stores/profile';
-import ProfileActions from 'actions/profile';
 
 @connectToStores
 export default class PasswordModal extends React.Component {
+  static propTypes = {
+    isModalOpen: PropTypes.bool,
+    password: PropTypes.string,
+    profile: PropTypes.shape({
+      first_name: PropTypes.string
+    })
+  }
+
   static getStores(props) {
     return [ApplicationStore, ProfileStore, PasswordStore];
   }
@@ -46,7 +52,9 @@ export default class PasswordModal extends React.Component {
 
   render() {
     return (
-      <Modal bsSize="small" show={ this.props.isModalOpen } onHide={ ApplicationActions.closeModal }>
+      <Modal bsSize="small" show={ this.props.isModalOpen }
+        onHide={ ApplicationActions.closeModal }
+      >
         <Modal.Header closeButton>
           <h3 className="modal-title">Hello { this.props.profile.first_name }!</h3>
         </Modal.Header>
@@ -55,7 +63,9 @@ export default class PasswordModal extends React.Component {
             <h4>Enter password:</h4>
 
             <FormGroup controlId="password" validationState={ this.validationState(this.props.password) }>
-              <FormControl type="password" name="password" onChange={ this.setPassword }/>
+              <FormControl type="password" name="password"
+                onChange={ this.setPassword }
+              />
             </FormGroup>
           </Modal.Body>
           <Modal.Footer>
