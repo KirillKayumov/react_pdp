@@ -3,8 +3,8 @@ import { createActions } from 'alt-utils/lib/decorators';
 
 @createActions(Alt)
 export default class FlashActions {
-  set(message) {
-    return message;
+  set(message, style) {
+    return { message, style };
   }
 
   dismiss() {

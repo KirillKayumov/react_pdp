@@ -9,6 +9,7 @@ export default class FlashStore {
 
   constructor() {
     this.message = '';
+    this.style = '';
 
     this.bindListeners({
       handleDismiss: FlashActions.DISMISS,
@@ -18,9 +19,11 @@ export default class FlashStore {
 
   handleDismiss() {
     this.message = '';
+    this.style = '';
   }
 
-  set(message) {
+  set({ message, style }) {
     this.message = message;
+    this.style = style;
   }
 }

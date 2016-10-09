@@ -1,7 +1,8 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
 import passwordSource from 'sources/password';
-import FlashActions from 'actions/flash';
+import ProfileActions from 'actions/profile';
+import ApplicationActions from 'actions/application';
 
 @createActions(Alt)
 export default class PasswordActions {
@@ -10,14 +11,9 @@ export default class PasswordActions {
   }
 
   submit(password) {
-    return (dispatch) => {
-      passwordSource.set(password).then(response => {
-        if (response.status == 200) {
-          FlashActions.set('Your password has been set successfully.');
-        }
+    ProfileActions.update({ password });
+    ApplicationActions.closeModal();
 
-        dispatch(response);
-      });
-    }
+    return password;
   }
 }

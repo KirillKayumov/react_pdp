@@ -6,23 +6,19 @@ export default class FacebookAuthSource {
   static oauthCallbackUrl = `${config.apiTarget}/v1/users/auth/facebook/callback`;
   static deleteUrl = `${config.apiTarget}/v1/identities/facebook`;
 
-  static create(callback) {
+  static authenticate(callback) {
     return this._facebookAuthorize((response) => {
-      if (response.status == 'connected') {
-        let backendResponse = this._backendAuthorize(response.authResponse);
+      let backendResponse = this._backendAuthenticate(response.authResponse);
 
-        callback(backendResponse);
-      }
+      callback(backendResponse);
     });
   }
 
   static connect(callback) {
     return this._facebookAuthorize((response) => {
-      if (response.status == 'connected') {
-        let backendResponse = this._backendConnect(response.authResponse);
+      let backendResponse = this._backendConnect(response.authResponse);
 
-        callback(backendResponse);
-      }
+      callback(backendResponse);
     });
   }
 
@@ -31,7 +27,7 @@ export default class FacebookAuthSource {
 
     return requestAuth(this.deleteUrl, {
       method: 'DELETE'
-    })
+    });
   }
 
   static logout() {
@@ -46,18 +42,11 @@ export default class FacebookAuthSource {
     FB.login(callback);
   }
 
-  static _backendAuthorize(authorizeResponse) {
+  static _backendAuthenticate(authorizeResponse) {
     return request(this.oauthCallbackUrl, {
       method: 'POST',
       body: JSON.stringify({ code: authorizeResponse.signedRequest, access_token: authorizeResponse.accessToken }),
       credentials: 'include'
-    })
-    .then(response => {
-      let status = response.status;
-
-      return response.json().then(json => {
-        return { status, json };
-      });
     });
   }
 

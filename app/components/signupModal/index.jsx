@@ -14,6 +14,8 @@ import SignupStore from 'stores/signup';
 import ApplicationStore from 'stores/application';
 import GoogleAuthLink from 'components/googleAuthLink';
 import FacebookAuthLink from 'components/facebookAuthLink';
+import GoogleAuthActions from 'actions/googleAuth';
+import FacebookAuthActions from 'actions/facebookAuth';
 
 @connectToStores
 export default class SignupModal extends React.Component {
@@ -46,7 +48,7 @@ export default class SignupModal extends React.Component {
     event.preventDefault();
 
     if (this.isValid()) {
-      SignupActions.create(this.props.user);
+      SignupActions.perform(this.props.user);
     }
   }
 
@@ -54,8 +56,6 @@ export default class SignupModal extends React.Component {
     const user = this.props.user;
 
     return (
-      user.first_name.trim().length &&
-      user.last_name.trim().length &&
       user.email.length >= 6 &&
       user.password.length >= 6 &&
       user.password_confirmation.length >= 6 &&
@@ -69,10 +69,6 @@ export default class SignupModal extends React.Component {
 
   validationState(value) {
     return value.length >= 6 ? 'success' : 'error';
-  }
-
-  nameValidationState(value) {
-    return value.trim().length ? 'success' : 'error';
   }
 
   passwordValidationState(value) {
@@ -93,6 +89,14 @@ export default class SignupModal extends React.Component {
     }
   }
 
+  handleGoogleClick() {
+    GoogleAuthActions.authenticate();
+  }
+
+  handleFacebookClick() {
+    FacebookAuthActions.authenticate();
+  }
+
   render() {
     return (
       <Modal
@@ -105,15 +109,12 @@ export default class SignupModal extends React.Component {
         </Modal.Header>
 
         { this.errorMessage() }
-        <GoogleAuthLink/>
-        <FacebookAuthLink/>
+        <GoogleAuthLink connected={ false } userAuthenticated={ false }/>
+        <FacebookAuthLink connected={ false } userAuthenticated={ false }/>
 
         <form onSubmit={ this.signUp }>
           <Modal.Body>
-            <FormGroup
-              controlId="first_name"
-              validationState={ this.nameValidationState(this.props.user.first_name) }
-            >
+            <FormGroup controlId="first_name">
               <ControlLabel>First Name</ControlLabel>
               <FormControl
                 type="text"
@@ -121,10 +122,7 @@ export default class SignupModal extends React.Component {
                 onChange={ this.setValue }
               />
             </FormGroup>
-            <FormGroup
-              controlId="last_name"
-              validationState={ this.nameValidationState(this.props.user.last_name) }
-            >
+            <FormGroup controlId="last_name">
               <ControlLabel>Last Name</ControlLabel>
               <FormControl
                 type="text"

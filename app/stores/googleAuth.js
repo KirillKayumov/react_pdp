@@ -10,13 +10,14 @@ export default class GoogleAuthStore {
   static displayName = 'GoogleAuthStore'
 
   constructor() {
-    this.connected = this._isConnectedToUser();
+    this.connected = '';
+    // this.connected = this._isConnectedToUser();
 
-    this.bindListeners({
-      unconnect: [SessionActions.DELETE, GoogleAuthActions.DELETE],
-      handleSessionCreate: SessionActions.CREATE,
-      handleGoogleAuthConnect: GoogleAuthActions.CONNECT
-    });
+    // this.bindListeners({
+    //   unconnect: [SessionActions.DELETE, GoogleAuthActions.DELETE],
+    //   handleSessionCreate: SessionActions.CREATE,
+    //   handleGoogleAuthConnect: GoogleAuthActions.CONNECT
+    // });
   }
 
   unconnect(response) {

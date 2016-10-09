@@ -1,7 +1,10 @@
 import React from 'react';
+import connectToStores from 'alt-utils/lib/connectToStores';
 import { Nav } from 'react-bootstrap';
 import NavigationItem from 'components/navigation';
+import NavigationLeftStore from 'stores/navigationLeft';
 
+@connectToStores
 export default class NavigationLeft extends React.Component {
   static propTypes = {
     items: React.PropTypes.arrayOf(
@@ -12,8 +15,16 @@ export default class NavigationLeft extends React.Component {
     )
   }
 
-  renderList = () => {
-    return this.props.items.map((item, index) => {
+  static getStores(props) {
+    return [NavigationLeftStore];
+  }
+
+  static getPropsFromStores(props) {
+    return NavigationLeftStore.getState();
+  }
+
+  renderLinks = () => {
+    return this.props.links.map((item, index) => {
       return (
         <NavigationItem key={ index } item={ item }/>
       );
@@ -23,7 +34,7 @@ export default class NavigationLeft extends React.Component {
   render() {
     return (
       <Nav>
-        { this.renderList() }
+        { this.renderLinks() }
       </Nav>
     );
   }

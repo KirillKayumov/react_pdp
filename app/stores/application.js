@@ -16,9 +16,7 @@ export default class ApplicationStore {
 
     this.bindListeners({
       openModal: ApplicationActions.OPEN_MODAL,
-      closeModal: [ApplicationActions.CLOSE_MODAL, PasswordActions.SUBMIT],
-      handleSessionCreate: SessionActions.CREATE,
-      handleSignupCreate: SignupActions.CREATE
+      closeModal: ApplicationActions.CLOSE_MODAL
     });
   }
 

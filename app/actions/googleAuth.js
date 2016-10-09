@@ -3,50 +3,68 @@ import { createActions } from 'alt-utils/lib/decorators';
 import googleAuthSource from 'sources/googleAuth';
 import SessionActions from 'actions/session';
 import FlashActions from 'actions/flash';
+import ProfileActions from 'actions/profile';
 
 @createActions(Alt)
 export default class GoogleAuthActions {
-  create() {
-    return (dispatch) => {
-      googleAuthSource.create((promise) => {
-        promise.then(response => {
-          if (response.status == 201) {
-            SessionActions.create(null, response);
-          }
-          dispatch(response);
-        });
+  authenticate() {
+    return googleAuthSource.authenticate((promise) => {
+      promise.then(response => {
+        switch (response.status) {
+          case 201:
+            this.authenticated(response);
+            break;
+          case 401:
+            this.authenticateFailed(response);
+            break;
+        }
       });
-    }
+    });
+  }
+
+  authenticated(response) {
+    SessionActions.create(response);
+
+    return response;
+  }
+
+  authenticateFailed(response) {
+    return (dispatch) => {
+      response.json().then(json => {
+        FlashActions.set(json.error.error, 'danger');
+        dispatch(json);
+      });
+    };
   }
 
   connect() {
     return (dispatch) => {
       googleAuthSource.connect((promise) => {
         promise.then(response => {
-          if (response.status == 201) {
-            FlashActions.set('Successfully authenticated from Google account.');
-          } else {
-            FlashActions.set('Could not authenticate you from Google.');
+          switch (response.status) {
+            case 201:
+              this.connected(response);
+              break;
           }
-
-          response.json().then(json => {
-            dispatch({ status: response.status, json });
-          });
         });
       });
     }
   }
 
+  connected(response) {
+    ProfileActions.loaded(response);
+    FlashActions.set('Google account was successfully connected.', 'success');
+
+    return response;
+  }
+
   delete() {
     return (dispatch) => {
       googleAuthSource.delete().then(response => {
-        if (response.status == 200) {
-          FlashActions.set('Google account was successfully deleted.');
-        }
+        ProfileActions.loaded(response);
+        FlashActions.set('Google account was successfully deleted.', 'success');
 
-        response.json().then(json => {
-          dispatch({ status: response.status, json });
-        });
+        dispatch(response);
       });
     }
   }

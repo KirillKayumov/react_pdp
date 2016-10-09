@@ -1,0 +1,6 @@
+.flash {
+  position: fixed;
+  right: 2rem;
+  top: 5rem;
+  z-index: 1100;
+}

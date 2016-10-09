@@ -9,18 +9,12 @@ export default class PasswordStore {
   static displayName = 'PasswordStore';
 
   constructor() {
-    this.name = '';
     this.password = '';
 
     this.bindListeners({
       setPassword: PasswordActions.SET_PASSWORD,
-      reset: PasswordActions.SUBMIT,
-      setName: [GoogleAuthActions.CREATE, FacebookAuthActions.CREATE]
+      reset: PasswordActions.SUBMIT
     });
-  }
-
-  create(data) {
-    this.email = data.json['user']['email'];
   }
 
   setPassword(password) {
@@ -28,11 +22,6 @@ export default class PasswordStore {
   }
 
   reset() {
-    this.name = '';
     this.password = '';
-  }
-
-  setName(response) {
-    this.name = response.json.user.first_name;
   }
 }

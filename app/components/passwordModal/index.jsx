@@ -11,16 +11,19 @@ import ApplicationStore from 'stores/application';
 import PasswordStore from 'stores/password';
 import ApplicationActions from 'actions/application';
 import PasswordActions from 'actions/password';
+import ProfileStore from 'stores/profile';
+import ProfileActions from 'actions/profile';
 
 @connectToStores
 export default class PasswordModal extends React.Component {
   static getStores(props) {
-    return [ApplicationStore, PasswordStore];
+    return [ApplicationStore, ProfileStore, PasswordStore];
   }
 
   static getPropsFromStores(props) {
     return {
       ...ApplicationStore.getState(),
+      ...ProfileStore.getState(),
       ...PasswordStore.getState()
     };
   }
@@ -45,7 +48,7 @@ export default class PasswordModal extends React.Component {
     return (
       <Modal bsSize="small" show={ this.props.isModalOpen } onHide={ ApplicationActions.closeModal }>
         <Modal.Header closeButton>
-          <h3 className="modal-title">Hello { this.props.name }!</h3>
+          <h3 className="modal-title">Hello { this.props.profile.first_name }!</h3>
         </Modal.Header>
         <form onSubmit={ this.submit }>
           <Modal.Body>

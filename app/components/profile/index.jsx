@@ -16,6 +16,11 @@ import Flash from 'components/flash'
 import styles from './styles'
 import GoogleAuthLink from 'components/googleAuthLink'
 import FacebookAuthLink from 'components/facebookAuthLink'
+import Session from 'services/session';
+import appHistory from 'services/history';
+import { paths } from 'helpers/routes';
+import GoogleAuthActions from 'actions/googleAuth';
+import FacebookAuthActions from 'actions/facebookAuth';
 
 @connectToStores
 export default class Profile extends React.Component {
@@ -27,6 +32,14 @@ export default class Profile extends React.Component {
     return {
       ...ProfileStore.getState()
     };
+  }
+
+  componentDidMount() {
+    ProfileActions.load();
+  }
+
+  componentWillUnmount() {
+    ProfileActions.reset();
   }
 
   submit = (event) => {
@@ -53,18 +66,37 @@ export default class Profile extends React.Component {
     }
   }
 
+  isLoading = () => {
+    return !Object.keys(this.props.profile).length;
+  }
+
+  hasProvider = (provider) => {
+    return this.props.profile.identities.map(identity => identity.provider).indexOf(provider) != -1;
+  }
+
   render() {
+    if (this.isLoading()) {
+      return (
+        <Grid>
+          <Row className="show-grid">
+            <Col md={ 3 } mdOffset={ 3 }>
+              <h2>Loading...</h2>
+            </Col>
+          </Row>
+        </Grid>
+      );
+    }
+
     return (
       <Grid>
-        <Flash/>
         <Row className="show-grid">
           <Col md={ 3 } mdOffset={ 3 }>
             <h2>Profile</h2>
           </Col>
           <Col md= { 3 }>
             <div className={ styles.identities }>
-              <GoogleAuthLink/>
-              <FacebookAuthLink/>
+              <GoogleAuthLink connected={ this.hasProvider("google_oauth2") } userAuthenticated={ true }/>
+              <FacebookAuthLink connected={ this.hasProvider("facebook") } userAuthenticated={ true }/>
             </div>
           </Col>
         </Row>

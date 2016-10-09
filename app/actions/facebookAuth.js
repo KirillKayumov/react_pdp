@@ -3,50 +3,70 @@ import { createActions } from 'alt-utils/lib/decorators';
 import facebookAuthSource from 'sources/facebookAuth';
 import SessionActions from 'actions/session';
 import FlashActions from 'actions/flash';
+import ProfileActions from 'actions/profile';
 
 @createActions(Alt)
 export default class FacebookAuthActions {
-  create() {
-    return (dispatch) => {
-      facebookAuthSource.create((promise) => {
-        promise.then(response => {
-          if (response.status == 201) {
-            SessionActions.create(null, response);
-          }
-          dispatch(response);
-        });
+  authenticate() {
+    return facebookAuthSource.authenticate((promise) => {
+      promise.then(response => {
+        switch (response.status) {
+          case 201:
+            this.authenticated(response);
+            break;
+          case 401:
+            this.authenticateFailed(response);
+            break;
+        }
       });
-    }
+    });
+  }
+
+  authenticated(response) {
+    SessionActions.create(response);
+
+    return response;
+  }
+
+  authenticateFailed(response) {
+    return (dispatch) => {
+      response.json().then(json => {
+        FlashActions.set(json.error.error, 'danger');
+        dispatch(json);
+      });
+    };
   }
 
   connect() {
     return (dispatch) => {
       facebookAuthSource.connect((promise) => {
         promise.then(response => {
-          if (response.status == 201) {
-            FlashActions.set('Successfully authenticated from Facebook account.');
-          } else {
-            FlashActions.set('Could not authenticate you from Facebook.');
+          switch (response.status) {
+            case 201:
+              this.connected(response);
+              break;
           }
 
-          response.json().then(json => {
-            dispatch({ status: response.status, json });
-          });
+          dispatch(response);
         });
       });
     }
   }
 
+  connected(response) {
+    ProfileActions.loaded(response);
+    FlashActions.set('Facebook account was successfully connected.', 'success');
+
+    return response;
+  }
+
   delete() {
     return (dispatch) => {
       facebookAuthSource.delete().then(response => {
-        if (response.status == 200) {
-          FlashActions.set('Facebook account was successfully deleted.');
-        }
+        ProfileActions.loaded(response);
+        FlashActions.set('Facebook account was successfully deleted.', 'success');
 
-        response.json().then(json => {
-          dispatch({ status: response.status, json });
-        });
+        dispatch(response);
       });
     }
   }

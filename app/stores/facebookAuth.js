@@ -10,13 +10,13 @@ export default class FacebookAuthStore {
   static displayName = 'FacebookAuthStore'
 
   constructor() {
-    this.connected = this._isConnectedToUser();
+    // this.connected = this._isConnectedToUser();
 
-    this.bindListeners({
-      unconnect: [SessionActions.DELETE, FacebookAuthActions.DELETE],
-      handleSessionCreate: SessionActions.CREATE,
-      handleFacebookAuthConnect: FacebookAuthActions.CONNECT
-    });
+    // this.bindListeners({
+    //   unconnect: [SessionActions.DELETE, FacebookAuthActions.DELETE],
+    //   handleSessionCreate: SessionActions.CREATE,
+    //   handleFacebookAuthConnect: FacebookAuthActions.CONNECT
+    // });
   }
 
   unconnect(response) {

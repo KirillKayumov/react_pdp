@@ -1,6 +1,6 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
-import SigninActions from 'actions/signin';
+import SignInActions from 'actions/signIn';
 import ApplicationActions from 'actions/application';
 import SessionActions from 'actions/session';
 
@@ -15,13 +15,12 @@ export default class SigninStore {
 
   constructor() {
     this.user = Object.assign({}, this.defaultProps);
-    this.errorMessage = '';
 
     this.bindListeners({
-      setValue: SigninActions.SET_VALUE,
-      reset: ApplicationActions.CLOSE_MODAL,
-      handleSessionCreate: SessionActions.CREATE
-    });
+      setValue: SignInActions.SET_VALUE,
+      handleSignInFailed: SignInActions.SIGN_IN_FAILED,
+      reset: ApplicationActions.CLOSE_MODAL
+    })
   }
 
   setValue(obj) {
@@ -30,14 +29,9 @@ export default class SigninStore {
 
   reset() {
     this.user = Object.assign({}, this.defaultProps);
-    this.errorMessage = '';
   }
 
-  handleSessionCreate(response) {
-    if (response.status == 201) {
-      this.reset();
-    } else if (response.status == 401) {
-      this.errorMessage = response.json.error.error
-    }
+  handleSignInFailed(json) {
+    this.errorMessage = json.error.error;
   }
 }

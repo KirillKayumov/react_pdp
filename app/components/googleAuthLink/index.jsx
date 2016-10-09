@@ -4,25 +4,16 @@ import GoogleAuthActions from 'actions/googleAuth'
 import GoogleAuthStore from 'stores/googleAuth'
 import session from 'services/session'
 
-@connectToStores
 export default class GoogleAuthLink extends React.Component {
-  static getStores(props) {
-    return [GoogleAuthStore];
-  }
-
-  static getPropsFromStores(props) {
-    return GoogleAuthStore.getState();
-  }
-
   handleClick = (event) => {
     event.preventDefault();
 
     if (this.props.connected) {
       GoogleAuthActions.delete();
-    } else if (session.loggedIn()) {
+    } else if (this.props.userAuthenticated) {
       GoogleAuthActions.connect();
     } else {
-      GoogleAuthActions.create();
+      GoogleAuthActions.authenticate();
     }
   }
 

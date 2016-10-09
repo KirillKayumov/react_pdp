@@ -3,6 +3,7 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import { Alert } from 'react-bootstrap';
 import FlashActions from 'actions/flash';
 import FlashStore from 'stores/flash';
+import styles from './styles';
 
 @connectToStores
 export default class Flash extends React.Component {
@@ -29,7 +30,9 @@ export default class Flash extends React.Component {
   render() {
     if (this.props.message) {
       return (
-        <Alert bsStyle="info" onDismiss={ this.handleDismiss }>{ this.props.message }</Alert>
+        <div className={ styles.flash }>
+          <Alert bsStyle={ this.props.style } onDismiss={ this.handleDismiss }>{ this.props.message }</Alert>
+        </div>
       )
     } else {
       return null;

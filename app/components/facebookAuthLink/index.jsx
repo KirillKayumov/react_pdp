@@ -5,33 +5,16 @@ import FacebookAuthStore from 'stores/facebookAuth'
 import session from 'services/session'
 import config from 'config'
 
-@connectToStores
 export default class FacebookAuthLink extends React.Component {
-  static getStores(props) {
-    return [FacebookAuthStore];
-  }
-
-  static getPropsFromStores(props) {
-    return FacebookAuthStore.getState();
-  }
-
-  componentDidMount() {
-    FB.init({
-      appId: config.facebookCliendId,
-      cookie: true,
-      version: 'v2.5'
-    });
-  }
-
   handleClick = (event) => {
     event.preventDefault();
 
     if (this.props.connected) {
       FacebookAuthActions.delete();
-    } else if (session.loggedIn()) {
+    } else if (this.props.userAuthenticated) {
       FacebookAuthActions.connect();
     } else {
-      FacebookAuthActions.create();
+      FacebookAuthActions.authenticate();
     }
   }
 

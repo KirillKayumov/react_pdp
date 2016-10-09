@@ -6,27 +6,21 @@ export default class GoogleAuthSource {
   static oauthCallbackUrl = `${config.apiTarget}/v1/users/auth/google_oauth2/callback`;
   static deleteUrl = `${config.apiTarget}/v1/identities/google_oauth2`;
 
-  static create(callback) {
-    return this._googleAuthorize((authorizeResponse) => {
-      delete authorizeResponse["g-oauth-window"];
+  static authenticate(callback) {
+    return this._googleAuthorize((googleAuthorizeResponse) => {
+      delete googleAuthorizeResponse["g-oauth-window"];
+      let response = this._backendAuthenticate(googleAuthorizeResponse);
 
-      if (authorizeResponse && !authorizeResponse.error) {
-        let response = this._backendAuthorize(authorizeResponse);
-
-        callback(response);
-      }
+      callback(response);
     });
   }
 
   static connect(callback) {
     return this._googleAuthorize((authorizeResponse) => {
       delete authorizeResponse["g-oauth-window"];
+      let response = this._backendConnect(authorizeResponse);
 
-      if (authorizeResponse && !authorizeResponse.error) {
-        let response = this._backendConnect(authorizeResponse);
-
-        callback(response);
-      }
+      callback(response);
     });
   }
 
@@ -46,24 +40,17 @@ export default class GoogleAuthSource {
     }, callback);
   }
 
-  static _backendAuthorize(authorizeResponse) {
+  static _backendAuthenticate(googleAuthorizeResponse) {
     return request(this.oauthCallbackUrl, {
       method: 'POST',
-      body: JSON.stringify(authorizeResponse)
-    })
-    .then(response => {
-      let status = response.status;
-
-      return response.json().then(json => {
-        return { status, json };
-      });
+      body: JSON.stringify(googleAuthorizeResponse)
     });
   }
 
-  static _backendConnect(authorizeResponse) {
+  static _backendConnect(googleAuthorizeResponse) {
     return requestAuth(this.oauthCallbackUrl, {
       method: 'POST',
-      body: JSON.stringify(authorizeResponse)
+      body: JSON.stringify(googleAuthorizeResponse)
     });
   }
 }

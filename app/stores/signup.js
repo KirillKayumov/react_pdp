@@ -21,8 +21,10 @@ export default class SignupStore {
 
     this.bindListeners({
       setValue: SignupActions.SET_VALUE,
-      reset: ApplicationActions.CLOSE_MODAL,
-      handleSignupCreate: SignupActions.CREATE
+      handleSignUpFailed: SignupActions.SIGN_UP_FAILED,
+      reset: ApplicationActions.CLOSE_MODAL
+    //   reset: ApplicationActions.CLOSE_MODAL,
+    //   handleSignupCreate: SignupActions.CREATE
     });
   }
 
@@ -45,6 +47,16 @@ export default class SignupStore {
         for (let message of validations[attribute]) {
           this.errorMessages.push(`${attribute} ${message}`);
         }
+      }
+    }
+  }
+
+  handleSignUpFailed(json) {
+    let validations = json['rails_api_format/error']['validations']
+
+    for (let attribute in validations) {
+      for (let message of validations[attribute]) {
+        this.errorMessages.push(`${attribute} ${message}`);
       }
     }
   }

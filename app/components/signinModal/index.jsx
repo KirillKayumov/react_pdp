@@ -10,11 +10,13 @@ import {
 } from 'react-bootstrap';
 import session from 'services/session';
 import ApplicationActions from 'actions/application';
-import SigninActions from 'actions/signin';
 import ApplicationStore from 'stores/application';
 import SigninStore from 'stores/signin';
 import GoogleAuthLink from 'components/googleAuthLink'
 import FacebookAuthLink from 'components/facebookAuthLink';
+import SignInActions from 'actions/signIn';
+import GoogleAuthActions from 'actions/googleAuth';
+import FacebookAuthActions from 'actions/facebookAuth';
 
 @connectToStores
 export default class SigninModal extends React.Component {
@@ -38,14 +40,14 @@ export default class SigninModal extends React.Component {
   }
 
   setValue(event) {
-    SigninActions.setValue(event.target.name, event.target.value);
+    SignInActions.setValue(event.target.name, event.target.value);
   }
 
   signIn = (event) => {
     event.preventDefault();
 
     if (this.isValid()) {
-      session.create(this.props.user);
+      SignInActions.perform(this.props.user);
     }
   }
 
@@ -59,10 +61,8 @@ export default class SigninModal extends React.Component {
     return value.length >= 6 ? 'success' : 'error';
   }
 
-  errorMessage() {
-    if (this.props.errorMessage) {
-      return <Alert bsStyle="danger">{ this.props.errorMessage }</Alert>;
-    }
+  handleFacebookClick() {
+    FacebookAuthActions.authenticate();
   }
 
   render() {
@@ -76,9 +76,8 @@ export default class SigninModal extends React.Component {
           <h3 className="modal-title">Sign In</h3>
         </Modal.Header>
 
-        { this.errorMessage() }
-        <GoogleAuthLink/>
-        <FacebookAuthLink/>
+        <GoogleAuthLink connected={ false } userAuthenticated={ false }/>
+        <FacebookAuthLink connected={ false } userAuthenticated={ false }/>
 
         <form onSubmit={ this.signIn }>
           <Modal.Body>
