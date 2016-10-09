@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Header from 'components/header';
 import Modals from 'components/modals';
 import Footer from 'components/footer';
@@ -7,7 +7,7 @@ import Flash from 'components/flash';
 import { Grid } from 'react-bootstrap';
 import config from 'config'
 
-export default class Application extends React.Component {
+export default class Application extends Component {
   componentDidMount() {
     FB.init({
       appId: config.facebookCliendId,

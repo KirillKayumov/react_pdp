@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import {
   Modal,
@@ -19,12 +19,12 @@ import GoogleAuthActions from 'actions/googleAuth';
 import FacebookAuthActions from 'actions/facebookAuth';
 
 @connectToStores
-export default class SigninModal extends React.Component {
+export default class SigninModal extends Component {
   static propTypes = {
-    isModalOpen: React.PropTypes.bool,
-    user: React.PropTypes.shape({
-      email: React.PropTypes.string,
-      password: React.PropTypes.string
+    isModalOpen: PropTypes.bool,
+    user: PropTypes.shape({
+      email: PropTypes.string,
+      password: PropTypes.string
     })
   }
 
@@ -111,7 +111,7 @@ export default class SigninModal extends React.Component {
               bsStyle="primary"
               type="submit"
             >
-              Save
+              Submit
             </Button>
           </Modal.Footer>
         </form>

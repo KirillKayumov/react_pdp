@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Navbar } from 'react-bootstrap';
 import NavigationLeft from 'components/navigation/left';
 import NavigationRight from 'components/navigation/right';
 
-export default class Header extends React.Component {
+export default class Header extends Component {
   render() {
     return (
       <Navbar>
