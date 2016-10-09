@@ -1,19 +1,19 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
-import SignInSource from 'sources/signIn';
+import SigninSource from 'sources/signin';
 import SessionActions from 'actions/session';
 import FlashActions from 'actions/flash';
 
 @createActions(Alt)
-export default class SignInActions {
+export default class SigninActions {
   perform(user) {
-    return SignInSource.perform(user).then(response => {
+    return SigninSource.perform(user).then(response => {
       switch (response.status) {
       case 201:
         this.signedIn(response);
         break;
       case 401:
-        this.signInFailed(response);
+        this.signinFailed(response);
         break;
       };
     });
@@ -25,7 +25,7 @@ export default class SignInActions {
     return response;
   }
 
-  signInFailed(response) {
+  signinFailed(response) {
     return (dispatch) => {
       response.json().then(json => {
         FlashActions.set(json.error.error, 'danger');

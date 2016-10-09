@@ -1,7 +1,7 @@
 import config from 'config';
 import request from 'lib/request';
 
-export default class SignInSource {
+export default class SigninSource {
   static url = `${config.apiTarget}/v1/users/sign_in`
 
   static perform(user) {

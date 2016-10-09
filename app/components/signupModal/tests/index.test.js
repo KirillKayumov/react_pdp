@@ -2,25 +2,25 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Modal } from 'react-bootstrap';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
-import SignUpModal from 'components/signUpModal';
+import SignupModal from 'components/signupModal';
 
 /* eslint-disable max-statements */
-describe('SignUp Modal', () => {
+describe('Signup Modal', () => {
   const state = { isModalOpen: true };
-  const signUpModalComponent = mount(<SignUpModal />);
+  const signupModalComponent = mount(<SignupModal />);
   let modalDialogContent;
 
   beforeAll(() => {
-    signUpModalComponent.setState(state);
-    modalDialogContent = signUpModalComponent.find(Modal).node._modal.getDialogElement();
+    signupModalComponent.setState(state);
+    modalDialogContent = signupModalComponent.find(Modal).node._modal.getDialogElement();
   });
 
   afterAll(() => {
-    signUpModalComponent.unmount();
+    signupModalComponent.unmount();
   });
 
   it('has Modal component', () => {
-    expect(signUpModalComponent.find(Modal).length).toEqual(1);
+    expect(signupModalComponent.find(Modal).length).toEqual(1);
   });
 
   it('renders Modal with form fields', () => {
@@ -120,7 +120,7 @@ describe('SignUp Modal', () => {
   describe('when the passwords match', () => {
     it('appears success class', () => {
       const passwordInput = modalDialogContent.querySelector('[name=password]');
-      const passwordConfirmationInput = modalDialogContent.querySelector('[name=passwordConfirmation]');
+      const passwordConfirmationinput = modalDialogContent.querySelector('[name=passwordConfirmation]');
 
       ReactTestUtils.Simulate.change(passwordInput, {
         target: {
@@ -129,15 +129,15 @@ describe('SignUp Modal', () => {
         }
       });
 
-      ReactTestUtils.Simulate.change(passwordConfirmationInput, {
+      ReactTestUtils.Simulate.change(passwordConfirmationinput, {
         target: {
           name: 'passwordConfirmation',
           value: 'superSecurityPassword'
         }
       });
 
-      expect(passwordConfirmationInput.parentElement.classList.contains('has-success')).toEqual(true);
-      expect(passwordInput.value).toEqual(passwordConfirmationInput.value);
+      expect(passwordConfirmationinput.parentElement.classList.contains('has-success')).toEqual(true);
+      expect(passwordInput.value).toEqual(passwordConfirmationinput.value);
     });
   });
 });

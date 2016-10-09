@@ -1,6 +1,6 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
-import SignOutSource from 'sources/signOut';
+import SignoutSource from 'sources/signout';
 import config from 'config';
 import Storage from 'lib/storage';
 import appHistory from 'services/history';
@@ -26,7 +26,7 @@ export default class SessionActions {
   }
 
   delete(user) {
-    SignOutSource.perform(user);
+    SignoutSource.perform(user);
     Storage.remove(STORAGE_KEY);
     appHistory.push(paths.home());
 

@@ -8,15 +8,15 @@ import {
   ControlLabel,
   Alert
 } from 'react-bootstrap';
-import SignUpActions from 'actions/signUp';
+import SignupActions from 'actions/signup';
 import ApplicationActions from 'actions/application';
-import SignUpStore from 'stores/signUp';
+import SignupStore from 'stores/signup';
 import ApplicationStore from 'stores/application';
 import GoogleAuthLink from 'components/googleAuthLink';
 import FacebookAuthLink from 'components/facebookAuthLink';
 
 @connectToStores
-export default class SignUpModal extends Component {
+export default class SignupModal extends Component {
   static propTypes = {
     errorMessages: PropTypes.arrayOf(PropTypes.string),
     isModalOpen: PropTypes.bool,
@@ -30,25 +30,25 @@ export default class SignUpModal extends Component {
   }
 
   static getStores(props) {
-    return [SignUpStore, ApplicationStore];
+    return [SignupStore, ApplicationStore];
   }
 
   static getPropsFromStores(props) {
     return {
-      ...SignUpStore.getState(),
+      ...SignupStore.getState(),
       ...ApplicationStore.getState()
     };
   }
 
   setValue(event) {
-    SignUpActions.setValue(event.target.name, event.target.value);
+    SignupActions.setValue(event.target.name, event.target.value);
   }
 
-  signUp = (event) => {
+  signup = (event) => {
     event.preventDefault();
 
     if (this.isValid()) {
-      SignUpActions.perform(this.props.user);
+      SignupActions.perform(this.props.user);
     }
   }
 
@@ -104,7 +104,7 @@ export default class SignUpModal extends Component {
         <GoogleAuthLink connected={ false } userAuthenticated={ false }/>
         <FacebookAuthLink connected={ false } userAuthenticated={ false }/>
 
-        <form onSubmit={ this.signUp }>
+        <form onSubmit={ this.signup }>
           <Modal.Body>
             <FormGroup controlId="first_name">
               <ControlLabel>First Name</ControlLabel>

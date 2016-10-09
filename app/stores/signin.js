@@ -1,11 +1,11 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
-import SignInActions from 'actions/signIn';
+import SigninActions from 'actions/signin';
 import ApplicationActions from 'actions/application';
 
 @createStore(Alt)
-export default class SignInStore {
-  static displayName = 'SignInStore'
+export default class SigninStore {
+  static displayName = 'SigninStore'
 
   defaultProps = {
     email: '',
@@ -16,8 +16,8 @@ export default class SignInStore {
     this.user = Object.assign({}, this.defaultProps);
 
     this.bindListeners({
-      setValue: SignInActions.SET_VALUE,
-      handleSignInFailed: SignInActions.SIGN_IN_FAILED,
+      setValue: SigninActions.SET_VALUE,
+      handleSigninFailed: SigninActions.SIGN_IN_FAILED,
       reset: ApplicationActions.CLOSE_MODAL
     });
   }
@@ -30,7 +30,7 @@ export default class SignInStore {
     this.user = Object.assign({}, this.defaultProps);
   }
 
-  handleSignInFailed(json) {
+  handleSigninFailed(json) {
     this.errorMessage = json.error.error;
   }
 }

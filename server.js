@@ -27,7 +27,7 @@ if (config.development) {
   server.use(jsonServer.defaults());
   server.use(config.apiPath, jsonServer.router('./db/db.json'));
   server.listen(port, 'localhost', () => {
-    console.log(`Server listenIng on port ${port}`);
+    console.log(`Server listening on port ${port}`);
   });
 } else {
   webpack(webpackBuildConfig, (err, stats) => {

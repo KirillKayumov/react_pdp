@@ -51,20 +51,20 @@ describe('NavigationRight', () => {
       expect(navItems.at(1).text()).toEqual('Sign in');
     });
 
-    it('calls ApplicationActions.openModal({ name: signUp }', () => {
+    it('calls ApplicationActions.openModal({ name: signup }', () => {
       spyOn(ApplicationActions, 'openModal');
       const navigationRightComponent = mount(<NavigationRight />);
       navigationRightComponent.find('a').at(0).simulate('click');
 
-      expect(ApplicationActions.openModal).toHaveBeenCalledWith({ name: 'signUp' });
+      expect(ApplicationActions.openModal).toHaveBeenCalledWith({ name: 'signup' });
     });
 
-    it('calls ApplicationActions.openModal({ name: signIn })', () => {
+    it('calls ApplicationActions.openModal({ name: signin })', () => {
       spyOn(ApplicationActions, 'openModal');
       const navigationRightComponent = mount(<NavigationRight />);
       navigationRightComponent.find('a').at(1).simulate('click');
 
-      expect(ApplicationActions.openModal).toHaveBeenCalledWith({ name: 'signIn' });
+      expect(ApplicationActions.openModal).toHaveBeenCalledWith({ name: 'signin' });
     });
   });
 });

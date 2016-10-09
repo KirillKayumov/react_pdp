@@ -9,13 +9,13 @@ import {
 } from 'react-bootstrap';
 import ApplicationActions from 'actions/application';
 import ApplicationStore from 'stores/application';
-import SignInStore from 'stores/signIn';
+import SigninStore from 'stores/signin';
 import GoogleAuthLink from 'components/googleAuthLink';
 import FacebookAuthLink from 'components/facebookAuthLink';
-import SignInActions from 'actions/signIn';
+import SigninActions from 'actions/signin';
 
 @connectToStores
-export default class SignInModal extends Component {
+export default class SigninModal extends Component {
   static propTypes = {
     isModalOpen: PropTypes.bool,
     user: PropTypes.shape({
@@ -25,25 +25,25 @@ export default class SignInModal extends Component {
   }
 
   static getStores(props) {
-    return [SignInStore, ApplicationStore];
+    return [SigninStore, ApplicationStore];
   }
 
   static getPropsFromStores(props) {
     return {
-      ...SignInStore.getState(),
+      ...SigninStore.getState(),
       ...ApplicationStore.getState()
     };
   }
 
   setValue(event) {
-    SignInActions.setValue(event.target.name, event.target.value);
+    SigninActions.setValue(event.target.name, event.target.value);
   }
 
-  signIn = (event) => {
+  signin = (event) => {
     event.preventDefault();
 
     if (this.isValid()) {
-      SignInActions.perform(this.props.user);
+      SigninActions.perform(this.props.user);
     }
   }
 
@@ -71,7 +71,7 @@ export default class SignInModal extends Component {
         <GoogleAuthLink connected={ false } userAuthenticated={ false }/>
         <FacebookAuthLink connected={ false } userAuthenticated={ false }/>
 
-        <form onSubmit={ this.signIn }>
+        <form onSubmit={ this.signin }>
           <Modal.Body>
             <FormGroup
               controlId="email"

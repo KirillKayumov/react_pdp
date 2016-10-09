@@ -1,11 +1,11 @@
 import Alt from 'altFlux';
 import { createStore } from 'alt-utils/lib/decorators';
-import SignUpActions from 'actions/signUp';
+import SignupActions from 'actions/signup';
 import ApplicationActions from 'actions/application';
 
 @createStore(Alt)
-export default class SignUpStore {
-  static displayName = 'SignUpStore'
+export default class SignupStore {
+  static displayName = 'SignupStore'
 
   defaultProps = {
     first_name: '',
@@ -20,8 +20,8 @@ export default class SignUpStore {
     this.errorMessages = [];
 
     this.bindListeners({
-      setValue: SignUpActions.SET_VALUE,
-      handleSignUpFailed: SignUpActions.SIGN_UP_FAILED,
+      setValue: SignupActions.SET_VALUE,
+      handleSignupFailed: SignupActions.SIGN_UP_FAILED,
       reset: ApplicationActions.CLOSE_MODAL
     });
   }
@@ -35,7 +35,7 @@ export default class SignUpStore {
     this.errorMessages = [];
   }
 
-  handleSignUpFailed(json) {
+  handleSignupFailed(json) {
     const validations = json['rails_api_format/error']['validations'];
 
     for (const attribute in validations) {

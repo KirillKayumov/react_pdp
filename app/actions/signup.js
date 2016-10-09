@@ -1,23 +1,23 @@
 import Alt from 'altFlux';
 import { createActions } from 'alt-utils/lib/decorators';
-import SignUpSource from 'sources/signUp';
+import SignupSource from 'sources/signup';
 import FlashActions from 'actions/flash';
 import ApplicationActions from 'actions/application';
 
 @createActions(Alt)
-export default class SignUpActions {
+export default class SignupActions {
   setValue(name, value) {
     return { name, value };
   }
 
   perform(user) {
-    return SignUpSource.create(user).then(response => {
+    return SignupSource.create(user).then(response => {
       switch (response.status) {
       case 201:
         this.signedUp(response);
         break;
       case 422:
-        this.signUpFailed(response);
+        this.signupFailed(response);
         break;
       };
     });
@@ -33,7 +33,7 @@ export default class SignUpActions {
     return response;
   }
 
-  signUpFailed(response) {
+  signupFailed(response) {
     return (dispatch) => {
       response.json().then(json => dispatch(json));
     };

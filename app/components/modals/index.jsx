@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 import ApplicationStore from 'stores/application';
-import SignInModal from 'components/signInModal';
-import SignUpModal from 'components/signUpModal';
+import SigninModal from 'components/signinModal';
+import SignupModal from 'components/signupModal';
 import PasswordModal from 'components/passwordModal';
 
 const MODALS = {
-  signIn: SignInModal,
-  signUp: SignUpModal,
+  signin: SigninModal,
+  signup: SignupModal,
   password: PasswordModal
 };
 
