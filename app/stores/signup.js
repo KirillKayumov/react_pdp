@@ -21,7 +21,7 @@ export default class SignupStore {
 
     this.bindListeners({
       setValue: SignupActions.SET_VALUE,
-      handleSignupFailed: SignupActions.SIGN_UP_FAILED,
+      handleSignupFailed: SignupActions.SIGNUP_FAILED,
       reset: ApplicationActions.CLOSE_MODAL
     });
   }
