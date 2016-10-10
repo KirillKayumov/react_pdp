@@ -17,23 +17,14 @@ describe('NavigationRight', () => {
       const navItems = navigationRightComponent.find(NavItem);
 
       expect(navs.length).toEqual(1);
-      expect(navItems.length).toEqual(2);
-      expect(navItems.at(0).text()).toEqual('New Task');
-      expect(navItems.at(1).text()).toEqual('Sign out');
-    });
-
-    it('calls ApplicationActions.openModal({ name: todo })', () => {
-      spyOn(ApplicationActions, 'openModal');
-      const navigationRightComponent = mount(<NavigationRight/>);
-      navigationRightComponent.find('a').at(0).simulate('click');
-
-      expect(ApplicationActions.openModal).toHaveBeenCalledWith({ name: 'todo' });
+      expect(navItems.length).toEqual(1);
+      expect(navItems.at(0).text()).toEqual('Sign out');
     });
 
     it('calls session.delete()', () => {
       spyOn(session, 'delete');
       const navigationRightComponent = mount(<NavigationRight />);
-      navigationRightComponent.find('a').at(1).simulate('click');
+      navigationRightComponent.find('a').at(0).simulate('click');
 
       expect(session.delete).toHaveBeenCalled();
     });

@@ -24,37 +24,7 @@ describe('Signup Modal', () => {
   });
 
   it('renders Modal with form fields', () => {
-    expect(modalDialogContent.getElementsByClassName('form-control').length).toEqual(4);
-  });
-
-  describe('when name is empty', () => {
-    it('appears error class', () => {
-      const nameInput = modalDialogContent.querySelector('[name=name]');
-
-      ReactTestUtils.Simulate.change(nameInput, {
-        target: {
-          name: 'name',
-          value: ''
-        }
-      });
-
-      expect(nameInput.parentElement.classList.contains('has-error')).toEqual(true);
-    });
-  });
-
-  describe('when name is valid', () => {
-    it('appears success class', () => {
-      const nameInput = modalDialogContent.querySelector('[name=name]');
-
-      ReactTestUtils.Simulate.change(nameInput, {
-        target: {
-          name: 'name',
-          value: 'someName'
-        }
-      });
-
-      expect(nameInput.parentElement.classList.contains('has-success')).toEqual(true);
-    });
+    expect(modalDialogContent.getElementsByClassName('form-control').length).toEqual(5);
   });
 
   describe('when email is too short', () => {
@@ -120,7 +90,7 @@ describe('Signup Modal', () => {
   describe('when the passwords match', () => {
     it('appears success class', () => {
       const passwordInput = modalDialogContent.querySelector('[name=password]');
-      const passwordConfirmationinput = modalDialogContent.querySelector('[name=passwordConfirmation]');
+      const passwordConfirmationinput = modalDialogContent.querySelector('[name=password_confirmation]');
 
       ReactTestUtils.Simulate.change(passwordInput, {
         target: {
@@ -131,7 +101,7 @@ describe('Signup Modal', () => {
 
       ReactTestUtils.Simulate.change(passwordConfirmationinput, {
         target: {
-          name: 'passwordConfirmation',
+          name: 'password_confirmation',
           value: 'superSecurityPassword'
         }
       });
