@@ -1,10 +1,7 @@
-# Skeleton for React based application
+# Social PDP frontend app
 
-[![Build Status](https://travis-ci.org/fs/react-base.svg?branch=master)](https://travis-ci.org/fs/react-base)
-[![Dependency Status](https://david-dm.org/fs/react-base.svg?branch=master)](https://david-dm.org/fs/react-base)
-[![devDependency Status](https://david-dm.org/fs/react-base/dev-status.svg?branch=master)](https://david-dm.org/fs/react-base#info=devDependencies)
-
-Kick-start your new web application based on React and Flux technologies. It also includes Webpack, React hot loader, PostCSS, JSON-server tools for even more rapid development.
+[![Build Status](https://semaphoreci.com/api/v1/kirill_kayumov/react_pdp/branches/master/shields_badge.svg)](https://semaphoreci.com/kirill_kayumov/react_pdp)
+[![Code Climate](https://codeclimate.com/github/KirillKayumov/react_pdp/badges/gpa.svg)](https://codeclimate.com/github/KirillKayumov/react_pdp)
 
 ## NPM Dependencies:
 
@@ -28,20 +25,6 @@ nvm alias default node
 ```
 
 ## Quick start
-
-Clone application as new project with original repository named "react-base"
-
-```bash
-git clone git@github.com:fs/react-base.git --origin react-base [MY-NEW-PROJECT]
-```
-
-Create your new repo on GitHub and push master into it.
-Make sure master branch is tracking origin repo.
-
-```bash
-git remote add origin git@github.com:[MY-GITHUB-ACCOUNT]/[MY-NEW-PROJECT].git
-git push -u origin master
-```
 
 Run bootstrap script
 
@@ -105,11 +88,3 @@ Run karma tests
 ```bash
 npm run karma
 ```
-
-## Credits
-
-React base is maintained by [Marat Fakhreev](http://github.com/maratfakhreev).
-It was written by [Flatstack](http://www.flatstack.com) with the help of our
-[contributors](http://github.com/fs/react-base/contributors).
-
-[<img src="http://www.flatstack.com/logo.svg" width="100"/>](http://www.flatstack.com)
