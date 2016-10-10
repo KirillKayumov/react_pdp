@@ -2,7 +2,7 @@ import config from 'config';
 import requestAuth from 'lib/requestAuth';
 
 export default class ProfileSource {
-  static url = `${config.apiTarget}/v1/profile`;
+  static url = `${config.apiTarget}/v1/user`;
 
   static load() {
     return requestAuth(this.url, {
